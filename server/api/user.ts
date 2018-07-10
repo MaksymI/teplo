@@ -1,9 +1,10 @@
 import * as passport from 'passport';
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
+import * as uuid from 'uuid/v4';
 import { default as NewUser, UserModel } from '../models/User';
 import AUTH_CONFIG from '../constants/auth_config';
-import * as bcrypt from 'bcrypt-nodejs';
+import * as bcrypt from 'bcryptjs';
 
 // * GET /login  * Login page.
 export const getLogin = (req: Request, res: Response) => {
@@ -53,7 +54,7 @@ export const updateUserData = (req: Request, res: Response) => {
   if (req.body.hasOwnProperty('password')) {
     bcrypt.genSalt(10, (errr, salt) => {
       if (errr) { return (errr); }
-      bcrypt.hash( req.body.password, salt, null, (error, hash) => {
+      bcrypt.hash( req.body.password, salt, (error, hash) => {
         if (error) { return (error); }
         req.body.password = hash;
         NewUser.update({_id: req.params.id}, req.body, (err, existingUser) => {
@@ -100,10 +101,11 @@ export const postLogin = (req: Request, res: Response, next: NextFunction) => {
       if (error) { return next(error); }
       console.log('Success! user is ...', user);
       // console.log('Success! req.session is ...', req.sessionID);
-      const token = jwt.sign({ name: user.name, email: user.email},
+      const refreshToken = uuid();
+      const token = jwt.sign({ name: user.name, email: user.email },
         AUTH_CONFIG.jwt_secret, { expiresIn: 1000 });
       console.log('Success! You are logged in. tocken is ', token);
-      res.json({ status: 'success', token, id: user._id, name: user.name });
+      res.json({ status: 'success', token, refreshToken, id: user._id, name: user.name });
     });
   })(req, res, next);
 };

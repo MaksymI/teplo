@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import * as bcrypt from 'bcrypt-nodejs';
+import * as bcrypt from 'bcryptjs';
 (<any>mongoose).Promise = global.Promise;
 
 export type UserModel = mongoose.Document & {
@@ -42,7 +42,7 @@ userSchema.pre('save', function save(next) {
   if (!user.isModified('password')) { return next(); }
   bcrypt.genSalt(10, (err, salt) => {
     if (err) { return next(err); }
-    bcrypt.hash(user.password, salt, null, (error, hash) => {
+    bcrypt.hash(user.password, salt, (error, hash) => {
       if (error) { return next(error); }
       user.password = hash;
       next();
