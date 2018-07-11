@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { IUser } from '../models/user.model';
 
 @Injectable({
@@ -16,24 +17,25 @@ export class AuthService {
   login(user: IUser) {
     const url = `/login`;
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post(url, user, { headers }).
-      pipe(
-        map((response: HttpResponse<IUser>) => {
-          const data = response;
-          if (data.status === 'success' && data.token) {
-            const expiresAt = JSON.stringify((2.88e+7) + new Date().getTime());
-            localStorage.setItem('access_token', data.token);
-            localStorage.setItem('id_token', data.id);
-            localStorage.setItem('expires_at', expiresAt);
-            this.router.navigate(['/']);
-            return response.json();
-          }
-          return response;
-        ),
-        catchError(this.handleError(user))
-      )
+    return this.http.post(url, user,  {headers: headers, observe: "response"})
+    .subscribe(res => console.log(res));
+      // pipe(
+      //   map((response: HttpResponse<IUser>) => {
+      //     const data = response;
+      //     if (data.status === 'success' && data.token) {
+      //       const expiresAt = JSON.stringify((2.88e+7) + new Date().getTime());
+      //       localStorage.setItem('access_token', data.token);
+      //       localStorage.setItem('id_token', data.id);
+      //       localStorage.setItem('expires_at', expiresAt);
+      //       this.router.navigate(['/']);
+      //       return response.json();
+      //     }
+      //     return response;
+      //   ),
+      //   catchError(this.handleError(user))
+      // )
     
-    });
+    // });
   }
 
   logout() {
@@ -45,10 +47,8 @@ export class AuthService {
 
   register(user: any) {
     const url = `/register`;
-    const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(url, user, { headers }).map((response: Response) => {
-      return response.json();
-    });
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(url, user, { headers });
   }
 
   public isAuthenticated(): boolean {
