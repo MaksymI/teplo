@@ -8,3 +8,15 @@
     margin: 0;
     padding: 0;
 }
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.icon {
+    padding: 0 14px;
+}
+
+.pointer {
+    cursor: pointer;
+}
