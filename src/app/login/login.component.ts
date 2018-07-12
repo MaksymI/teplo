@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { IUser } from '../models/user.model';
 
 @Component({
@@ -10,10 +11,9 @@ import { IUser } from '../models/user.model';
 export class LoginComponent implements OnInit {
   user: IUser;
   loading: boolean = false;
-  username : string
-  password : string
+  responseData: any;
 
-  constructor(private router : Router) {
+  constructor(private auth: AuthService, private router : Router) {
   }
 
   ngOnInit() {
@@ -21,11 +21,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() : void {
-    if (this.username == 'admin' && this.password == 'admin') {
-     this.router.navigate([""]);
-    } else {
-      alert("Invalid credentials");
-    }
+    this.auth.login(this.user).subscribe(
+      data => {
+        console.log(`login data is ${data}`)
+        this.responseData = data;
+        this.router.navigate([""]);
+      },
+      err => console.log(`onLogin err is ${err}`)
+   );
   }
 
   cancel(): void {

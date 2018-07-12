@@ -16,6 +16,7 @@ import * as compression from 'compression';
 import DATABASE_CONFIG from './constants/database_config';
 import * as userController from './api/user';
 import { verifyToken } from './api/auth';
+import * as passportConfig from './config/passport';
 
 // Create Express server
 const app = express();

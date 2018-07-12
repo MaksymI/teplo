@@ -85,12 +85,12 @@ export const postLogin = (req: Request, res: Response, next: NextFunction) => {
   req.assert('password', 'Password cannot be blank').notEmpty();
   req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
-  const errors = req.validationErrors();
+  // const errors = req.validationErrors();
 
-  if (errors) {
-    console.log('postLogin errors are', errors);
-    return res.json({ status: 'error', msg: 'Invalid email' });
-  }
+  // if (errors) {
+  //   console.log('postLogin errors are', errors);
+  //   return res.json({ status: 'error', msg: 'Invalid email' });
+  // }
 
   passport.authenticate('local', (err: Error, user: UserModel) => {
     if (err) { return next(err); }

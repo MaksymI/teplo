@@ -15,10 +15,20 @@ export class AuthService {
    }
 
   login(user: IUser) {
-    const url = `/login`;
+    const url = `http://localhost:3000/login`;
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post(url, user,  {headers: headers, observe: "response"})
-    .subscribe(res => console.log(res));
+    return this.http.post(url, user,  {headers: headers, observe: 'response'});
+      // .subscribe(res => {
+      //   console.log(res);
+      //   // if (res.status === 200 && res.body.token) {
+      //   //     const expiresAt = JSON.stringify((2.88e+7) + new Date().getTime());
+      //   //     localStorage.setItem('access_token', res.token);
+      //   //     localStorage.setItem('id_token', res.id);
+      //   //     localStorage.setItem('expires_at', expiresAt);
+      //   //     this.router.navigate(['/']);
+      //   //     return res;
+      //   //   }
+      //   });
       // pipe(
       //   map((response: HttpResponse<IUser>) => {
       //     const data = response;
