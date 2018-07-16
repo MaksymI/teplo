@@ -14,9 +14,10 @@ import {
   HeaderComponent,
   Page404Component,
   HomeComponent,
-  LoginComponent
+  LoginComponent,
+  AboutComponent
  } from '.';
-import { AboutComponent } from './about/about.component';
+import { AccountingModule } from './accounting/accounting.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AboutComponent } from './about/about.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    AccountingModule,
     AppRoutingModule
   ],
   providers: [],
