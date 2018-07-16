@@ -20,3 +20,12 @@
 .pointer {
     cursor: pointer;
 }
+
+.active {
+    opacity: 0.5;
+    cursor: none;
+}
+
+:visited, :active {
+    outline: none;
+}

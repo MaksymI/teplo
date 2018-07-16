@@ -2,7 +2,11 @@
     <mat-toolbar color="primary">
       <span>Data keeper</span>
       <span class="spacer"></span>
+      <span class="pointer" routerLink="/home" routerLinkActive="active">Home</span>
+      <span class="spacer"></span>
+      <span class="pointer" routerLink="/about" routerLinkActive="active">About</span>
+      <span class="spacer"></span>
       <mat-icon *ngIf="isAuthenticated" class="icon">person</mat-icon>
-      <mat-icon *ngIf="!isAuthenticated" class="icon pointer" routerLink="/login">input</mat-icon>
+      <mat-icon *ngIf="!isAuthenticated" class="icon pointer" routerLink="/login" routerLinkActive="active">input</mat-icon>
     </mat-toolbar>
 </header>
