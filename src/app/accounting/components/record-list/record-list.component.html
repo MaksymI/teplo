@@ -1,5 +1,6 @@
-<app-record
-  *ngFor="let record of records"
-  [record]="record"
-  (saveRecord)="onSaveRecord($event)">
-</app-record>
+<div class="container">
+  <mat-card class="sizer">
+    <app-record *ngFor="let record of records" [record]="record" (saveRecord)="onSaveRecord($event)" (editRecord)="onEditRecord($event)">
+    </app-record>
+  </mat-card>
+</div>

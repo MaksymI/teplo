@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Record } from '../../models/record.model';
 import { RecordArrayService } from '../../services/record-array.service'
@@ -11,7 +12,10 @@ import { RecordArrayService } from '../../services/record-array.service'
 export class RecordListComponent implements OnInit {
   records: Array<Record>;
 
-  constructor(private recordArrayService: RecordArrayService) { }
+  constructor(
+    private router: Router,
+    private recordArrayService: RecordArrayService
+  ) { }
 
   ngOnInit() {
     this.getRecords().catch(err => console.log(err));
@@ -21,7 +25,10 @@ export class RecordListComponent implements OnInit {
     this.recordArrayService.saveRecord(record);
   }
 
-  onEditRecord(record: Record): void {}
+  onEditRecord(record: Record): void {
+    const link = ['/edit', record.id];
+    this.router.navigate(link);
+  }
 
   private async getRecords() {
     this.records = await this.recordArrayService.getRecords();
