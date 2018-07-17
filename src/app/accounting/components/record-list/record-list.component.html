@@ -1,3 +1,5 @@
-<p>
-  record-list works!
-</p>
+<app-record
+  *ngFor="let record of records"
+  [record]="record"
+  (saveRecord)="onSaveRecord($event)">
+</app-record>
