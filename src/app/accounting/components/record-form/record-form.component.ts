@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
@@ -15,6 +16,7 @@ export class RecordFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private location: Location,
     private recordArrayService: RecordArrayService
   ) { }
 
@@ -38,8 +40,12 @@ export class RecordFormComponent implements OnInit {
     } else {
       this.recordArrayService.addRecord(record);
     }
+
+    this.goBack();
   }
 
-  goBack(): void {}
+  goBack(): void {
+    this.location.back();
+  }
 
 }
