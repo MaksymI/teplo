@@ -9,8 +9,29 @@
     padding: 0;
 }
 
-:focus {
+span:focus, mat-icon:focus {
     outline: 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.inner-content {
+    overflow: auto;
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    top:64px;
+  }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .spacer {
