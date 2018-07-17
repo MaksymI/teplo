@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from '../material/material.module';
 import { AccountingRoutingModule } from './accounting-routing.module';
-import { RecordListComponent } from './components/record-list/record-list.component';
-import { RecordComponent } from './components/record/record.component';
+import { RecordListComponent, RecordComponent } from '.';
 
 @NgModule({
   imports: [
