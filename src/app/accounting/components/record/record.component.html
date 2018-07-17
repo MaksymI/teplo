@@ -1,0 +1,23 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
+  <mat-card class="sizer">
+    <mat-card-header>
+      <mat-card-title>Record</mat-card-title>
+    </mat-card-header>
+    <mat-list>
+      <mat-list-item> ID: {{record.id}} </mat-list-item>
+      <mat-list-item> Date: {{record.date}} </mat-list-item>
+      <mat-list-item> Saved: {{record.saved}} </mat-list-item>
+     </mat-list>
+    <mat-card-actions>
+      <button mat-raised-button color="primary"
+        (click)="onSaveRecord()"
+        [disabled]="record.saved">
+        SAVE
+      </button>
+      <button mat-button color="primary"
+        (click)="onEditRecord()">
+        EDIT
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  </div>
