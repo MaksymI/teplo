@@ -7,6 +7,11 @@
             <router-outlet></router-outlet>
         </div>
         <div fxFlex="20">
+            <button mat-stroked-button color="primary"
+                *ngIf="!messagesService.isDispayed"
+                (click)="onDisplayMessages()">
+                Show Messages
+            </button>
             <router-outlet name="popup"></router-outlet>
         </div>
     </div>

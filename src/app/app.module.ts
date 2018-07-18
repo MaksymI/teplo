@@ -15,7 +15,8 @@ import {
   Page404Component,
   HomeComponent,
   LoginComponent,
-  AboutComponent
+  AboutComponent,
+  MessagesComponent
  } from '.';
 import { AccountingModule } from './accounting/accounting.module';
 
@@ -27,7 +28,8 @@ import { AccountingModule } from './accounting/accounting.module';
     Page404Component,
     HomeComponent,
     LoginComponent,
-    AboutComponent
+    AboutComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
