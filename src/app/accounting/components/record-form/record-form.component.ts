@@ -32,8 +32,8 @@ export class RecordFormComponent implements OnInit {
     .subscribe(record => (this.record = {...record}), err => console.log(err));
   }
 
-  onSaveRecord() {
-    const record = { ...this.record };
+  onChangeRecord() {
+    const record = { ...this.record, ...{saved: false} };
 
     if(record.id) {
       this.recordArrayService.updateRecord(record);

@@ -3,7 +3,7 @@
     <mat-card-header>
       <mat-card-title>Record Data</mat-card-title>
     </mat-card-header>
-    <form *ngIf="record" (ngSubmit)="onSaveRecord()" id="record-form" #form="ngForm">
+    <form *ngIf="record" (ngSubmit)="onChangeRecord()" id="record-form" #form="ngForm">
 
       <mat-form-field>
         <input type="number" name="id" id="id" matInput placeholder="ID" required [(ngModel)]="record.id">
@@ -14,13 +14,14 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input type="date" name="date" id="date" matInput placeholder="DATE" [(ngModel)]="record.date">
+        <input type="date" name="date" id="date" matInput placeholder="DATE"
+        [ngModel]="record.date | date: 'yyyy-MM-dd'" (ngModelChange)="record.date=$event">
       </mat-form-field>
 
       <button mat-raised-button color="primary"
         form="record-form"
         [disabled]="form.invalid">
-        SAVE
+        CHANGE
       </button>
       <button mat-button color="primary"
         (click)="goBack()">
