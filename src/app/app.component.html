@@ -1,5 +1,13 @@
 <app-header></app-header>
-<div class ="inner-content">
-    <router-outlet></router-outlet>
-</div>
+    <div class="inner-content" flex fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="20">
+            <router-outlet name="popup1"></router-outlet>
+        </div>
+        <div fxFlex="60">
+            <router-outlet></router-outlet>
+        </div>
+        <div fxFlex="20">
+            <router-outlet name="popup"></router-outlet>
+        </div>
+    </div>
 <app-footer></app-footer>
