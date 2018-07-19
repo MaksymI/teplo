@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { Record } from '../../models/record.model';
-import { RecordArrayService } from '../../services/record-array.service'
+import { RecordArrayService } from '../../services/record-array.service';
 
 @Component({
   selector: 'app-record-form',
