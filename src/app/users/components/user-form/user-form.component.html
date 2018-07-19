@@ -1,0 +1,37 @@
+<div class="container">
+    <mat-card class="sizer">
+      <mat-card-header>
+        <mat-card-title>Record Data</mat-card-title>
+      </mat-card-header>
+      <form *ngIf="user" (ngSubmit)="onSaveUser()" id="record-form" #form="ngForm">
+
+        <mat-form-field>
+          <textarea matInput required
+                name="firstName"
+                id="firstName"
+                placeholder="First Name"
+                [(ngModel)]="user.firstName">
+          </textarea>
+        </mat-form-field>
+  
+        <mat-form-field>
+            <textarea matInput required
+                name="lastName"
+                id="lastName"
+                placeholder="Last Name"
+                [(ngModel)]="user.lastName">
+            </textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary"
+          [disabled]="form.invalid">
+          SAVE
+        </button>
+        <button mat-button color="primary"
+          (click)="goback()">
+          BACK
+        </button>
+
+      </form>
+    </mat-card>
+  </div>

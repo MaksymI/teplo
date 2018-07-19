@@ -4,7 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 
-import { UsersRoutingModule } from './users-routing.module';
+import { UserComponent, UserArrayService } from '.';
+
+import { UsersRoutingModule, userRouterComponents } from './users-routing.module';
 
 @NgModule({
   imports: [
@@ -14,6 +16,10 @@ import { UsersRoutingModule } from './users-routing.module';
     MaterialModule,
     UsersRoutingModule
   ],
-  declarations: []
+  declarations: [
+    UserComponent,
+    userRouterComponents
+  ],
+  providers: [ UserArrayService ]
 })
 export class UsersModule { }

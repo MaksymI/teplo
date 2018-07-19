@@ -1,0 +1,16 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
+    <mat-card class="sizer">
+      <mat-list>
+        <mat-list-item>
+          <p mat-line>First Name: {{user.firstName}}</p>
+          <p mat-line>Last Name: {{user.lastName}}</p>
+        </mat-list-item>
+       </mat-list>
+      <mat-card-actions>
+        <button mat-button color="primary"
+          (click)="onEditUser()">
+          EDIT
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
