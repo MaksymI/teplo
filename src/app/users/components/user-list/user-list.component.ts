@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { User } from '../../models/user.model';
 import { UserArrayService } from '../../services/user-array.service';
-import { pipe } from '../../../../../node_modules/@angular/core/src/render3/pipe';
-
 
 @Component({
   selector: 'app-user-list',
