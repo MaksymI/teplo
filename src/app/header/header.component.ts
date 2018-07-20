@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +7,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  navLinks = [
+    {
+      label: 'Records',
+      path: './record-list'
+    },
+    {
+      label: 'Users',
+      path: './users'
+    },
+    {
+      label: 'Admin',
+      path: './admin'
+    },
+    {
+      label: 'Home',
+      path: './home'
+    },
+    {
+      label: 'About',
+      path: './about'
+    }
+  ];
+
   isAuthenticated: boolean = false;
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
   }

@@ -1,18 +1,17 @@
 <header>
-    <mat-toolbar color="primary">
-      <span>Data keeper</span>
-      <span class="spacer"></span>
-      <span class="pointer" routerLink="/record-list" routerLinkActive="active">Records</span>
-      <span class="spacer"></span>
-      <span class="pointer" routerLink="/users" routerLinkActive="active">Users</span>
-      <span class="spacer"></span>
-      <span class="pointer" routerLink="/admin" routerLinkActive="active">Admin</span>
-      <span class="spacer"></span>
-      <span class="pointer" routerLink="/home" routerLinkActive="active">Home</span>
-      <span class="spacer"></span>
-      <span class="pointer" routerLink="/about" routerLinkActive="active">About</span>
-      <span class="spacer"></span>
-      <mat-icon *ngIf="isAuthenticated" class="icon">person</mat-icon>
-      <mat-icon *ngIf="!isAuthenticated" class="icon pointer" routerLink="/login" routerLinkActive="active">input</mat-icon>
-    </mat-toolbar>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+      [routerLinkActiveOptions]="{exact: true}"
+      *ngFor="let link of navLinks"
+      [routerLink]="link.path"
+      routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">
+      {{link.label}}
+    </a>
+    <span class="spacer"></span>
+    <a mat-tab-link>
+      <mat-icon *ngIf="authService.isLoggedIn" class="icon" routerLink="/login">person</mat-icon>
+      <mat-icon *ngIf="!authService.isLoggedIn" class="icon pointer" routerLink="/login" routerLinkActive="active">input</mat-icon>
+    </a>
+  </nav>
 </header>
