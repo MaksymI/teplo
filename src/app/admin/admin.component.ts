@@ -7,21 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
   navLinks = [
-    {
-      label: 'Dashboard',
-      path: './'
+     {
+       label: 'Dashboard',
+       path: './'
      },
      {
-       label: 'Manage Tasks',
-       path: './'
+       label: 'Manage Records',
+       path: './records'
      },
      {
        label: 'Manage Users',
-       path: './'
+       path: './users'
      }
   ];
-
-  activeLink = this.navLinks[0];
 
   constructor() { }
 
