@@ -5,8 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import { User } from '../../models/user.model';
 import { UserArrayService } from '../../services/user-array.service';
-import { CanComponentDeactivate } from '../../../interfaces/can-component-deactivate.interface';
-import { DialogService } from '../../../services/dialog.service';
+import { DialogService, CanComponentDeactivate } from '../../../.';
 
 @Component({
   selector: 'app-user-form',
@@ -57,12 +56,12 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   goBack() {
-    this.router.navigate(['./../../'], { relativeTo: this.route });
+    this.router.navigate(['./../../'], { relativeTo: this.route })
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     const flags = Object.keys(this.originalUser).map(key => {
-      if (this.originalUser[key] === this.user[key]) {
+      if(this.originalUser[key] === this.user[key]) {
         return true;
       }
       return false;
