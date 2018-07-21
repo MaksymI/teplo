@@ -56,12 +56,12 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   goBack() {
-    this.router.navigate(['./../../'], { relativeTo: this.route })
+    this.router.navigate(['./../../'], { relativeTo: this.route });
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     const flags = Object.keys(this.originalUser).map(key => {
-      if(this.originalUser[key] === this.user[key]) {
+      if (this.originalUser[key] === this.user[key]) {
         return true;
       }
       return false;

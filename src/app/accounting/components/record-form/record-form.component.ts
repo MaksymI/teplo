@@ -35,7 +35,7 @@ export class RecordFormComponent implements OnInit {
   onChangeRecord() {
     const record = { ...this.record, ...{saved: false} };
 
-    if(record.id) {
+    if (record.id) {
       this.recordArrayService.updateRecord(record);
     } else {
       this.recordArrayService.addRecord(record);

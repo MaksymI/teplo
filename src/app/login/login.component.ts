@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { MessagesService } from '../services/messages.service'
+import { MessagesService } from '../services/messages.service';
 import { IUser } from '../models/user.model';
 import { Subscription } from 'rxjs';
 
@@ -13,11 +13,11 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   message: string;
   user: IUser;
-  loading: boolean = false;
+  loading = false;
   responseData: any;
   private sub: Subscription;
 
-  constructor(public authService: AuthService, private messagesService: MessagesService, private router : Router) {
+  constructor(public authService: AuthService, private messagesService: MessagesService, private router: Router) {
   }
 
   ngOnInit() {
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   cancel(): void {
-    this.router.navigate([""]);
+    this.router.navigate(['']);
   }
 
   private setMessage() {

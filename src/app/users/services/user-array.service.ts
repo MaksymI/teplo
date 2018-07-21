@@ -33,7 +33,7 @@ export class UserArrayService {
 
   updateUser(user: User): void {
     const i = userList.findIndex(u => u.id === user.id);
-    if(i > -1) {
+    if (i > -1) {
       userList.splice(i, 1, user);
     }
   }

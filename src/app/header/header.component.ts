@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     }
   ];
 
-  isAuthenticated: boolean = false;
+  isAuthenticated = false;
 
   constructor(public authService: AuthService) { }
 

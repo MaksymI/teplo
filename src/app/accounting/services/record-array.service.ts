@@ -6,7 +6,7 @@ const recordList = [
   new Record(2),
   new Record(3),
   new Record(4)
-]
+];
 
 const recordListpromise = Promise.resolve(recordList);
 

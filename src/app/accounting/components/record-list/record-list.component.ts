@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Record } from '../../models/record.model';
-import { RecordArrayService } from '../../services/record-array.service'
+import { RecordArrayService } from '../../services/record-array.service';
 
 @Component({
   selector: 'app-record-list',
