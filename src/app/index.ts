@@ -5,5 +5,3 @@ export * from './home/home.component';
 export * from './login/login.component';
 export * from './about/about.component';
 export * from './messages/messages.component';
-export * from './services/dialog.service';
-export * from './interfaces/can-component-deactivate.interface';
