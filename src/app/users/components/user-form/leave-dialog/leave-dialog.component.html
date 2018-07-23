@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>You have unsaved changes</h2>
+<mat-dialog-content class="error">{{data.errorMsg}}</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="closeDialog(true)">Yes</button>
+  <button mat-raised-button (click)="closeDialog(false)">No</button>
+</mat-dialog-actions>

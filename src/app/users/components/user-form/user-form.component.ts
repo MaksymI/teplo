@@ -5,7 +5,9 @@ import { Observable, Subscription } from 'rxjs';
 
 import { User } from '../../models/user.model';
 import { UserArrayService } from '../../services/user-array.service';
-import { DialogService, CanComponentDeactivate } from '../../../.';
+import { CanComponentDeactivate } from '../../../.';
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { LeaveDialogComponent } from './leave-dialog/leave-dialog.component';
 
 @Component({
   selector: 'app-user-form',
@@ -22,7 +24,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     private userArrayService: UserArrayService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogService: DialogService
+    public matDialog : MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +72,15 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     if (flags.every(el => el)) {
       return true;
     }
-    return this.dialogService.confirm('Discard changes?');
+    return this.showError('Discard changes?');
+  }
+
+  showError(error : string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.role = 'alertdialog';
+    dialogConfig.data = { errorMsg: error };
+    return this.matDialog.open(LeaveDialogComponent, dialogConfig).afterClosed();
   }
 }

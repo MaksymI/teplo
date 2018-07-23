@@ -7,6 +7,7 @@ import { MaterialModule } from '../material/material.module';
 import { UserComponent, UserArrayService } from '.';
 
 import { UsersRoutingModule, userRouterComponents } from './users-routing.module';
+import { LeaveDialogComponent } from './components/user-form/leave-dialog/leave-dialog.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,10 @@ import { UsersRoutingModule, userRouterComponents } from './users-routing.module
   ],
   declarations: [
     UserComponent,
-    userRouterComponents
+    userRouterComponents,
+    LeaveDialogComponent
   ],
-  providers: [ UserArrayService ]
+  providers: [ UserArrayService ],
+  entryComponents: [ LeaveDialogComponent ]
 })
 export class UsersModule { }
