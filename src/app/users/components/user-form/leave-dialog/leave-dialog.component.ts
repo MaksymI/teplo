@@ -8,9 +8,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class LeaveDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<LeaveDialogComponent>, @Inject(MAT_DIALOG_DATA) public data : any) {}
+  constructor(private dialogRef: MatDialogRef<LeaveDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
-  public closeDialog(result){
+  public closeDialog(result) {
     this.dialogRef.close(result);
   }
 
