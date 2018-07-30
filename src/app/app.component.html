@@ -4,6 +4,7 @@
             <router-outlet name="popup1"></router-outlet>
         </div>
         <div fxFlex="60">
+            <app-spinner *ngIf="spinnerService.isVisible()"></app-spinner>
             <router-outlet></router-outlet>
         </div>
         <div fxFlex="20">

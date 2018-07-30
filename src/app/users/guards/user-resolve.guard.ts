@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, Resolve } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { map, catchError, take } from 'rxjs/operators';
+import { map, delay, finalize, catchError, take } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { UserArrayService } from '../services/user-array.service';
+import { SpinnerService } from '../../shared';
 
 @Injectable()
 export class UserResolveGuard implements Resolve<User> {
   constructor(
     private userArrayService: UserArrayService,
+    private spinnerService: SpinnerService,
     private router: Router
   ) {}
 
@@ -21,9 +23,11 @@ export class UserResolveGuard implements Resolve<User> {
       return of(new User(null, '', ''));
     }
 
+    this.spinnerService.show();
     const id = +route.paramMap.get('userID');
 
     return this.userArrayService.getUser(id).pipe(
+      delay(2000),
       map(user => {
         if (user) {
           return user;
@@ -36,7 +40,8 @@ export class UserResolveGuard implements Resolve<User> {
       catchError(() => {
         this.router.navigate(['/users']);
         return of(null);
-      })
+      }),
+      finalize(() => this.spinnerService.hide())
     );
   }
 }

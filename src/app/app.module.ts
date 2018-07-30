@@ -9,6 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
 import { AccountingModule } from './accounting/accounting.module';
 import { UsersModule } from './users/users.module';
 import { AdminModule } from './admin/admin.module';
@@ -39,6 +40,7 @@ import {
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
+    SharedModule,
     MaterialModule,
     AccountingModule,
     UsersModule,
