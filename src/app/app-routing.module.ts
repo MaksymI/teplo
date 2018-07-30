@@ -50,7 +50,7 @@ const routes: Routes = [
 
 const extraOptions: ExtraOptions = {
   preloadingStrategy: PreloadAllModules,
-  enableTracing: true // Makes the router log all its internal events to the console.
+  // enableTracing: true // Makes the router log all its internal events to the console.
 };
 
 @NgModule({
