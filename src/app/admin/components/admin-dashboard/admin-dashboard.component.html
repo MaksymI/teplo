@@ -1,1 +1,9 @@
-<mat-card>admin-dashboard works!</mat-card>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <p>Session ID: {{ sessionID | async }}</p>
+      <a id="anchor"></a>
+    </mat-card-title>
+    <mat-card-subtitle>Token: {{ token | async}}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>
