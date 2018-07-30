@@ -8,7 +8,9 @@
     *ngFor="let link of navLinks"
     [routerLink]="link.path"
     routerLinkActive #rla="routerLinkActive"
-    [active]="rla.isActive">
+    [active]="rla.isActive"
+    queryParamsHandling="preserve"
+    preserveFragment>
     {{link.label}}
   </a>
 </nav>
