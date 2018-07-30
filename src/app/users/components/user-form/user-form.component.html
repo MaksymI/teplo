@@ -3,7 +3,7 @@
       <mat-card-header>
         <mat-card-title>Record Data</mat-card-title>
       </mat-card-header>
-      <form *ngIf="user" (ngSubmit)="onSaveUser()" id="record-form" #form="ngForm">
+      <form (ngSubmit)="onSaveUser()" id="record-form" #form="ngForm">
 
         <mat-form-field>
           <textarea matInput required
@@ -13,7 +13,7 @@
                 [(ngModel)]="user.firstName">
           </textarea>
         </mat-form-field>
-  
+
         <mat-form-field>
             <textarea matInput required
                 name="lastName"

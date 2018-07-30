@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 
-import { UserComponent, UserArrayService } from '.';
+import { UserComponent, UserArrayService, UserResolveGuard } from '.';
 
 import { UsersRoutingModule, userRouterComponents } from './users-routing.module';
 
@@ -20,6 +20,6 @@ import { UsersRoutingModule, userRouterComponents } from './users-routing.module
     UserComponent,
     userRouterComponents
   ],
-  providers: [ UserArrayService ]
+  providers: [ UserArrayService, UserResolveGuard ]
 })
 export class UsersModule { }
