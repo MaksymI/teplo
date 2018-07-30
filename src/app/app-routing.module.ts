@@ -22,6 +22,14 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule'
+  },
+  {
+    path: 'users',
+    loadChildren: './users/users.module#UsersModule'
+  },
+  {
     path: 'messages',
     component: MessagesComponent,
     outlet: 'popup'
