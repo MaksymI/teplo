@@ -8,6 +8,8 @@ import { HomeComponent,
   MessagesComponent
  } from '.';
 
+ import { AuthGuard } from './guards/auth.guard';
+
 const routes: Routes = [
   {
     path: 'about',
@@ -23,6 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canLoad: [AuthGuard],
     loadChildren: './admin/admin.module#AdminModule'
   },
   {
