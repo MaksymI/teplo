@@ -6,7 +6,7 @@ import { map, delay, finalize, catchError, take } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { UserArrayService } from '../services/user-array.service';
-import { SpinnerService } from '../../shared';
+import { SpinnerService } from '../../';
 
 @Injectable()
 export class UserResolveGuard implements Resolve<User> {

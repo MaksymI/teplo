@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { User } from '../../models/user.model';
 import { UserArrayService } from '../../services/user-array.service';
-import { DialogService, CanComponentDeactivate } from '../../../.';
+import { DialogService, CanComponentDeactivate } from '../../..';
 
 @Component({
   selector: 'app-user-form',
