@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { MessagesService } from './services/messages.service';
 import { SpinnerService } from '.';
 
@@ -18,12 +18,13 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private titleService: Title,
+    private metaService: Meta,
     public messagesService: MessagesService,
     public spinnerService: SpinnerService,
   ) {}
 
   ngOnInit() {
-    this.setPageTitles();
+    this.setPageTitlesAndMeta();
   }
 
   ngOnDestroy() {
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.messagesService.isDispayed = true;
   }
 
-  private setPageTitles() {
+  private setPageTitlesAndMeta() {
     this.sub = this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -49,6 +50,9 @@ export class AppComponent implements OnInit, OnDestroy {
         filter(route => route.outlet === 'primary'),
         switchMap(route => route.data)
       )
-      .subscribe(data => this.titleService.setTitle(data['title']));
+      .subscribe(data => {
+        this.titleService.setTitle(data['title']);
+        this.metaService.addTags(data['meta']);
+      });
   }
 }

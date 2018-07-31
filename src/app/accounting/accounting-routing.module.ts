@@ -6,7 +6,19 @@ const routes: Routes = [
   {
     path: 'record-list',
     component: RecordListComponent,
-    data: { title: 'Records manager' }
+    data: {
+      title: 'Records manager',
+      meta: [
+        {
+          name: 'description',
+          content: 'Record Manager Application. This is an SPA'
+        },
+        {
+          name: 'keywords',
+          content: 'MaksymI pet project, SPA, learning, Angular 6'
+        }
+      ]
+    }
   },
   {
     path: 'edit/:recordID',
