@@ -15,6 +15,7 @@ import * as compression from 'compression';
 
 import DATABASE_CONFIG from './constants/database_config';
 import * as userController from './api/user';
+import * as recordController from './api/record';
 import { verifyToken } from './api/auth';
 import * as passportConfig from './config/passport';
 
@@ -65,8 +66,10 @@ app.post('/login', userController.postLogin);
 app.get('/logout', verifyToken, userController.logout);
 app.get('/register', userController.getSignup);
 app.post('/register', userController.postSignup);
+app.get('/record-list', recordController.getRecords);
 app.get('/profile/:id', userController.getUserDataById);
 app.put('/profile/:id', userController.updateUserData);
+app.get('/edit/:recordID', recordController.getRecordById);
 
 app.get('/profile', userController.getProfile);
 app.get('/profile/:id', userController.getUserDataById);
