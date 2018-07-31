@@ -8,3 +8,4 @@ export * from './messages/messages.component';
 export * from './services/dialog.service';
 export * from './services/spinner.service';
 export * from './interfaces/can-component-deactivate.interface';
+export * from './services/custom-preload-strategy.service';
