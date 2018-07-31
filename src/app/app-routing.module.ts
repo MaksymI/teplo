@@ -14,25 +14,29 @@ import { HomeComponent,
 const routes: Routes = [
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
+    data: { title: 'About' }
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    data: { title: 'Home' }
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: { title: 'login' }
   },
   {
     path: 'admin',
     canLoad: [AuthGuard],
-    loadChildren: './admin/admin.module#AdminModule'
+    loadChildren: './admin/admin.module#AdminModule',
+    data: { title: 'Admin' }
   },
   {
     path: 'users',
     loadChildren: './users/users.module#UsersModule',
-    data: { preload: true }
+    data: { preload: true, title: 'Users' }
   },
   {
     path: 'messages',
@@ -46,7 +50,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: Page404Component
+    component: Page404Component,
+    data: { title: 'Page Not Found' }
   }
 ];
 

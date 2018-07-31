@@ -5,7 +5,8 @@ import { RecordListComponent, RecordFormComponent } from '.';
 const routes: Routes = [
   {
     path: 'record-list',
-    component: RecordListComponent
+    component: RecordListComponent,
+    data: { title: 'Records manager' }
   },
   {
     path: 'edit/:recordID',
