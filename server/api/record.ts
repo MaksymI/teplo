@@ -2,10 +2,12 @@ import { Request, Response } from 'express';
 import { Record } from '../models/record';
 
 export const getRecords = (req: Request, res: Response) => {
+  console.log('getRecords() invoked');
   Record.find({})
     .exec((err, records) => {
       if (err) {
-        console.log('Error retrieving cafes');
+        console.log('Error retrieving records!');
+        res.status(404).send('Not Found!');
       } else {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(JSON.stringify(records, null, 2));
@@ -14,14 +16,16 @@ export const getRecords = (req: Request, res: Response) => {
 };
 
 export const getRecordById = (req: Request, res: Response) => {
-  Record.find({ _id: {$in: req.params.recordId.split(',')} })
-    .then((data) => {
-      if (data) {
-        res.status(200).send(data);
-      } else {
-        res.status(404).send('Not Found!');
-      }
-    })
-    .catch((error) => console.log(error));
+  console.log('getRecordById() invoked');
+  Record.findOne({ _id: req.params.recordID })
+  .exec((err, record) => {
+    if (err) {
+      console.log('Error retrieving record!');
+      res.status(404).send('Not Found!');
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      // res.status(200).send(JSON.stringify(record, null, 2));
+      res.status(200).send(record);
+    }
+  });
 };
-

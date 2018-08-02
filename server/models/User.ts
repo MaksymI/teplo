@@ -4,13 +4,9 @@ import * as bcrypt from 'bcryptjs';
 
 export type UserModel = mongoose.Document & {
   email: string,
-  mobile: number,
   name: string,
   gender: string,
   password: string,
-  facebook: string,
-  favorites: [String],
-  image: string,
   registrationDate: string,
   comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void
 };
@@ -22,18 +18,10 @@ const userSchema = new mongoose.Schema({
     dropDups: true,
     trim: true
   },
-  mobile: {
-    type: Number,
-    unique: true,
-    dropDups: true
-  },
-  registrationDate: Date,
   name: String,
   gender: String,
-  age: Number,
   password: String,
-  tokens: Array,
-  image: String,
+  registrationDate: Date,
 }, { versionKey: false });
 
 // Password hash middleware.
@@ -63,5 +51,5 @@ userSchema.methods.comparePassword = function comparePassword(candidatePassword,
     cb(err, isMatch);
   });
 };
-const NewUser = mongoose.model('NewUser', userSchema, 'newusers');
+const NewUser = mongoose.model('User', userSchema, 'users');
 export default NewUser;

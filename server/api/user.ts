@@ -26,6 +26,7 @@ export const getProfile = (req: Request, res: Response) => {
 
 // * GET User byId.
 export const getUserDataById = (req: Request, res: Response) => {
+  console.log('getUserDataById() invoked');
   NewUser.findById(req.params.id, (err, existingUser) => {
     if (err) { return err; }
     if (existingUser) {
@@ -143,19 +144,15 @@ export const postSignup = (req: Request, res: Response, next: NextFunction) => {
   const user = new NewUser({
     name: req.body.name,
     email: req.body.email,
-    mobile: req.body.mobile,
     password: req.body.password,
   });
 
-  NewUser.findOne({$or: [{email: req.body.email}, {mobile: req.body.mobile}]}, (err, existingUser: UserModel) => {
+  NewUser.findOne({$or: [{email: req.body.email}]}, (err, existingUser: UserModel) => {
     if (err) { return next(err); }
     if (existingUser) {
     if (existingUser.email === req.body.email) {
       console.log('Account with that email address already exists.');
       return res.json({ status: 'error', msg: 'Account with that email address already exists.' });
-    } else if (existingUser.mobile === parseInt(req.body.mobile, 10)) {
-      console.log('Account with that mobile number already exists.');
-      return res.json({ status: 'error', msg: 'Account with that mobile number already exists.' });
     }
   }
     user.save((error) => {
