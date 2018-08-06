@@ -1,5 +1,10 @@
 <div class="container">
   <mat-card class="sizer">
+      <button mat-raised-button color="primary"
+      (click)="onCreateRecord()">
+      New Record
+    </button>
+    <br>
     <app-record
      *ngFor="let record of records"
      [record]="record"

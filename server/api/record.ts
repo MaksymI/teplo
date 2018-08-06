@@ -42,3 +42,16 @@ export const updateRecordById = (req: Request, res: Response) => {
     }
   });
 };
+
+export const createRecord = (req: Request, res: Response) => {
+  console.log('createRecord() invoked');
+  Record.create(req.body)
+  .then(record => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(record);
+  })
+  .catch(err => {
+      console.log(err);
+      res.status(404).send('Unable to create record!');
+  });
+};

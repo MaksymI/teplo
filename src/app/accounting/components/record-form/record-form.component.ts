@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { Record } from '../../models/record.model';
-import { RecordArrayService, RecordPromiseService } from '../../services/';
+import { RecordPromiseService } from '../../services/';
 
 @Component({
   selector: 'app-record-form',
@@ -17,7 +17,6 @@ export class RecordFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private recordArrayService: RecordArrayService,
     private recordPromiseService: RecordPromiseService
   ) { }
 
@@ -26,9 +25,12 @@ export class RecordFormComponent implements OnInit {
 
     this.route.paramMap
     .pipe(
-      switchMap((params: Params) =>
-        this.recordPromiseService.getRecord(+params.get('recordID'))
-      )
+      switchMap((params: Params) => {
+        return params.get('recordID')
+          ? this.recordPromiseService.getRecord(+params.get('recordID'))
+          // : Promise.resolve(null);
+          : Promise.resolve(this.record);
+      })
     )
     .subscribe(record => (this.record = {...record}), err => console.log(err));
   }
@@ -36,12 +38,10 @@ export class RecordFormComponent implements OnInit {
   onChangeRecord() {
     const record = { ...this.record, ...{saved: false} };
 
-    if (record.id) {
-      this.recordPromiseService.updateRecord(record).then(() => this.goBack());
-    } else {
-      this.recordArrayService.addRecord(record);
-      this.goBack();
-    }
+    const method = record.id ? 'updateRecord' : 'createRecord';
+    this.recordPromiseService[method](record)
+      .then(() => this.goBack())
+      .catch(err => console.log(err));
   }
 
   goBack(): void {

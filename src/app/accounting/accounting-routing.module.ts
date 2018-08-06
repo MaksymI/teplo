@@ -21,6 +21,10 @@ const routes: Routes = [
     }
   },
   {
+    path: 'add',
+    component: RecordFormComponent
+  },
+  {
     path: 'edit/:recordID',
     component: RecordFormComponent
   }

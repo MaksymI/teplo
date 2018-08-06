@@ -5,9 +5,9 @@
     </mat-card-header>
     <form *ngIf="record" (ngSubmit)="onChangeRecord()" id="record-form" #form="ngForm">
 
-      <mat-form-field>
+      <!-- <mat-form-field>
         <input type="number" name="id" id="id" matInput placeholder="ID" required [(ngModel)]="record.id">
-      </mat-form-field>
+      </mat-form-field> -->
 
       <mat-form-field>
         <input type="number" name="value" id="value" matInput placeholder="Value" required [(ngModel)]="record.value">

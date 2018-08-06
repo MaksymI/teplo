@@ -30,6 +30,11 @@ export class RecordListComponent implements OnInit {
     this.router.navigate(link);
   }
 
+  onCreateRecord(): void {
+    const link = ['/add'];
+    this.router.navigate(link);
+  }
+
   private async getRecords() {
     this.records = await this.recordPromiseService.getRecords();
   }

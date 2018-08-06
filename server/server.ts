@@ -70,6 +70,7 @@ app.post('/register', userController.postSignup);
 app.get('/record-list', recordController.getRecords);
 app.get('/record-list/:recordID', recordController.getRecordById);
 app.put('/record-list/:recordID', recordController.updateRecordById);
+app.post('/record-list/add', recordController.createRecord);
 
 app.get('/profile', userController.getProfile);
 app.get('/profile/:id', userController.getUserDataById);
