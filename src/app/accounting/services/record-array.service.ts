@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Record } from '../models/record.model';
 
 const recordList = [
-  new Record(1),
-  new Record(2),
-  new Record(3),
-  new Record(4)
+  new Record('1'),
+  new Record('2'),
+  new Record('3'),
+  new Record('4')
 ];
 
 const recordListpromise = Promise.resolve(recordList);
@@ -23,7 +23,7 @@ export class RecordArrayService {
 
   getRecord(id: number | string): Promise<Record> {
     return this.getRecords()
-      .then(records => records.find(record => record.id === +id))
+      .then(records => records.find(record => record._id === id))
       .catch(() => Promise.reject('Error in getRecord'));
   }
 
@@ -32,7 +32,7 @@ export class RecordArrayService {
   }
 
   updateRecord(record: Record): void {
-    const i = recordList.findIndex(r => r.id === record.id);
+    const i = recordList.findIndex(r => r._id === record._id);
 
     if (i > -1) {
       recordList.splice(i, 1, record);
@@ -40,7 +40,7 @@ export class RecordArrayService {
   }
 
   saveRecord(record: Record): void {
-    const i = recordList.findIndex(r => r.id === record.id);
+    const i = recordList.findIndex(r => r._id === record._id);
 
     recordList[i].saved = true;
   }

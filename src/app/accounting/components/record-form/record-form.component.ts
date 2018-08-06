@@ -13,6 +13,7 @@ import { RecordPromiseService } from '../../services/';
 })
 export class RecordFormComponent implements OnInit {
   record: Record;
+  method: String;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,18 +28,23 @@ export class RecordFormComponent implements OnInit {
     .pipe(
       switchMap((params: Params) => {
         return params.get('recordID')
-          ? this.recordPromiseService.getRecord(+params.get('recordID'))
+          ? this.recordPromiseService.getRecord(params.get('recordID'))
           // : Promise.resolve(null);
           : Promise.resolve(this.record);
       })
     )
-    .subscribe(record => (this.record = {...record}), err => console.log(err));
+    .subscribe(record => {
+        this.record = {...record};
+        this.method = record._id ? 'CHANGE' : 'CREATE';
+      },
+      err => console.log(err)
+    );
   }
 
   onChangeRecord() {
     const record = { ...this.record, ...{saved: false} };
 
-    const method = record.id ? 'updateRecord' : 'createRecord';
+    const method = record._id ? 'updateRecord' : 'createRecord';
     this.recordPromiseService[method](record)
       .then(() => this.goBack())
       .catch(err => console.log(err));

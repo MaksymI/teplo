@@ -6,7 +6,7 @@
     <form *ngIf="record" (ngSubmit)="onChangeRecord()" id="record-form" #form="ngForm">
 
       <!-- <mat-form-field>
-        <input type="number" name="id" id="id" matInput placeholder="ID" required [(ngModel)]="record.id">
+        <input type="text" name="id" id="id" matInput placeholder="ID" [ngModel]="record._id">
       </mat-form-field> -->
 
       <mat-form-field>
@@ -21,7 +21,7 @@
       <button mat-raised-button color="primary"
         form="record-form"
         [disabled]="form.invalid">
-        CHANGE
+        {{method}}
       </button>
       <button type="reset" accesskey="r" mat-button color="primary"
         routerLink="/record-list">

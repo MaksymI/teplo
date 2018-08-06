@@ -17,7 +17,7 @@ export const getRecords = (req: Request, res: Response) => {
 
 export const getRecordById = (req: Request, res: Response) => {
   console.log('getRecordById() invoked');
-  Record.findOne({ id: req.params.recordID })
+  Record.findById(req.params.recordID)
   .exec((err, record) => {
     if (err) {
       console.log('Error retrieving record!');
@@ -31,7 +31,7 @@ export const getRecordById = (req: Request, res: Response) => {
 
 export const updateRecordById = (req: Request, res: Response) => {
   console.log('updateRecordById() invoked');
-  Record.update({ id: req.params.recordID }, req.body)
+  Record.update({ _id: req.params.recordID }, req.body)
   .exec((err, record) => {
     if (err) {
       console.log('Error updating record!');

@@ -6,7 +6,6 @@ import { Record } from '../models/record.model';
 @Injectable()
 export class RecordPromiseService {
   private recordsUrl = 'http://localhost:3000/record-list';
-  private counter = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +29,7 @@ export class RecordPromiseService {
 
 
   updateRecord(record: Record): Promise<Record> {
-    const url = `${this.recordsUrl}/${record.id}`;
+    const url = `${this.recordsUrl}/${record._id}`;
     const body = JSON.stringify(record);
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -44,8 +43,6 @@ export class RecordPromiseService {
   }
 
   createRecord(record: Record): Promise<Record> {
-    this.setCounter();
-    record.id = this.counter++;
     console.log(record);
     const url = `${this.recordsUrl}/add`;
     const body = JSON.stringify(record);
@@ -63,14 +60,6 @@ export class RecordPromiseService {
   private handleError(error: any): Promise<any> {
     console.error('An error occured ', error);
     return Promise.reject(error.message || error);
-  }
-
-  private setCounter() {
-    this.getRecords()
-    .then(records => {
-      this.counter = Math.max.apply(Math, records.map( r => r.id));
-      console.log(this.counter);
-    });
   }
 
 }

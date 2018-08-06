@@ -1,6 +1,6 @@
 export class Record {
     constructor(
-        public id: number,
+        public _id?: string,
         public value?: number,
         public date?: Date,
         public saved?: boolean

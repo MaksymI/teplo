@@ -26,7 +26,7 @@ export class RecordListComponent implements OnInit {
   }
 
   onEditRecord(record: Record): void {
-    const link = ['/edit', record.id];
+    const link = ['/edit', record._id];
     this.router.navigate(link);
   }
 
@@ -46,7 +46,7 @@ export class RecordListComponent implements OnInit {
     });
 
     if (updatedRecord) {
-      const index = this.records.findIndex(r => r.id === updatedRecord.id);
+      const index = this.records.findIndex(r => r._id === updatedRecord._id);
       if (index > -1) {
         this.records.splice(index, 1, updatedRecord);
       }
