@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Record } from '../../models/record.model';
-import { RecordArrayService, RecordPromiseService } from '../../services';
+import { RecordPromiseService } from '../../services';
 
 @Component({
   selector: 'app-record-list',
@@ -14,7 +14,6 @@ export class RecordListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private recordArrayService: RecordArrayService,
     private recordPromiseService: RecordPromiseService
   ) { }
 
@@ -23,7 +22,7 @@ export class RecordListComponent implements OnInit {
   }
 
   onSaveRecord(record: Record): void {
-    this.recordArrayService.saveRecord(record);
+    this.updateRecord(record).catch(err => console.log(err));
   }
 
   onEditRecord(record: Record): void {
@@ -33,6 +32,20 @@ export class RecordListComponent implements OnInit {
 
   private async getRecords() {
     this.records = await this.recordPromiseService.getRecords();
+  }
+
+  private async updateRecord(record: Record) {
+    const updatedRecord = await this.recordPromiseService.updateRecord({
+      ...record,
+      saved: true
+    });
+
+    if (updatedRecord) {
+      const index = this.records.findIndex(r => r.id === updatedRecord.id);
+      if (index > -1) {
+        this.records.splice(index, 1, updatedRecord);
+      }
+    }
   }
 
 }

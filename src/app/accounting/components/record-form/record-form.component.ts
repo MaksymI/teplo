@@ -37,12 +37,11 @@ export class RecordFormComponent implements OnInit {
     const record = { ...this.record, ...{saved: false} };
 
     if (record.id) {
-      this.recordArrayService.updateRecord(record);
+      this.recordPromiseService.updateRecord(record).then(() => this.goBack());
     } else {
       this.recordArrayService.addRecord(record);
+      this.goBack();
     }
-
-    this.goBack();
   }
 
   goBack(): void {

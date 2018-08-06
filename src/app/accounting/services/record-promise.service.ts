@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Record } from '../models/record.model';
 
@@ -27,6 +27,20 @@ export class RecordPromiseService {
       .catch(this.handleError);
   }
 
+
+  updateRecord(record: Record): Promise<Record> {
+    const url = `${this.recordsUrl}/${record.id}`;
+    const body = JSON.stringify(record);
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http
+      .put(url, body, options)
+      .toPromise()
+      .then(response => <Record[]>response)
+      .catch(this.handleError);
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occured ', error);

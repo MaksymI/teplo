@@ -66,10 +66,10 @@ app.post('/login', userController.postLogin);
 app.get('/logout', verifyToken, userController.logout);
 app.get('/register', userController.getSignup);
 app.post('/register', userController.postSignup);
+
 app.get('/record-list', recordController.getRecords);
-app.get('/profile/:id', userController.getUserDataById);
-app.put('/profile/:id', userController.updateUserData);
 app.get('/record-list/:recordID', recordController.getRecordById);
+app.put('/record-list/:recordID', recordController.updateRecordById);
 
 app.get('/profile', userController.getProfile);
 app.get('/profile/:id', userController.getUserDataById);

@@ -24,7 +24,20 @@ export const getRecordById = (req: Request, res: Response) => {
       res.status(404).send('Not Found!');
     } else {
       res.setHeader('Content-Type', 'application/json');
-      // res.status(200).send(JSON.stringify(record, null, 2));
+      res.status(200).send(record);
+    }
+  });
+};
+
+export const updateRecordById = (req: Request, res: Response) => {
+  console.log('updateRecordById() invoked');
+  Record.update({ id: req.params.recordID }, req.body)
+  .exec((err, record) => {
+    if (err) {
+      console.log('Error updating record!');
+      res.status(404).send('Not Found!');
+    } else {
+      res.setHeader('Content-Type', 'application/json');
       res.status(200).send(record);
     }
   });
