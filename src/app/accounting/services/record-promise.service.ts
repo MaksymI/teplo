@@ -17,6 +17,17 @@ export class RecordPromiseService {
       .catch(this.handleError);
   }
 
+  getRecord(id: number ): Promise<Record> {
+    const url = `${this.recordsUrl}/${id}`;
+
+    return this.http
+      .get(url)
+      .toPromise()
+      .then(response => <Record[]>response)
+      .catch(this.handleError);
+  }
+
+
   private handleError(error: any): Promise<any> {
     console.error('An error occured ', error);
     return Promise.reject(error.message || error);

@@ -17,7 +17,7 @@ export const getRecords = (req: Request, res: Response) => {
 
 export const getRecordById = (req: Request, res: Response) => {
   console.log('getRecordById() invoked');
-  Record.findOne({ _id: req.params.recordID })
+  Record.findOne({ id: req.params.recordID })
   .exec((err, record) => {
     if (err) {
       console.log('Error retrieving record!');

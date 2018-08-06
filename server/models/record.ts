@@ -5,6 +5,7 @@ import { IRecord } from '../interfaces/record.interface';
 export interface IRecordModel extends IRecord, Document {}
 
 export const RecordSchema: Schema = new Schema({
+  id: Number,
   value: Number,
   date: Date,
   saved: Boolean

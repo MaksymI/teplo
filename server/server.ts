@@ -69,7 +69,7 @@ app.post('/register', userController.postSignup);
 app.get('/record-list', recordController.getRecords);
 app.get('/profile/:id', userController.getUserDataById);
 app.put('/profile/:id', userController.updateUserData);
-app.get('/edit/:recordID', recordController.getRecordById);
+app.get('/record-list/:recordID', recordController.getRecordById);
 
 app.get('/profile', userController.getProfile);
 app.get('/profile/:id', userController.getUserDataById);

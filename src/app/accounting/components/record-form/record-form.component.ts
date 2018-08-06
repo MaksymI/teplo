@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { Record } from '../../models/record.model';
-import { RecordArrayService } from '../../services/record-array.service';
+import { RecordArrayService, RecordPromiseService } from '../../services/';
 
 @Component({
   selector: 'app-record-form',
@@ -17,7 +17,8 @@ export class RecordFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private recordArrayService: RecordArrayService
+    private recordArrayService: RecordArrayService,
+    private recordPromiseService: RecordPromiseService
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class RecordFormComponent implements OnInit {
     this.route.paramMap
     .pipe(
       switchMap((params: Params) =>
-        this.recordArrayService.getRecord(+params.get('recordID'))
+        this.recordPromiseService.getRecord(+params.get('recordID'))
       )
     )
     .subscribe(record => (this.record = {...record}), err => console.log(err));
