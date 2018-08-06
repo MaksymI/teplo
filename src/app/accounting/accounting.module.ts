@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountingRoutingModule } from './accounting-routing.module';
-import { RecordListComponent, RecordComponent, RecordFormComponent } from '.';
+import { RecordListComponent, RecordComponent, RecordFormComponent, RecordPromiseService } from '.';
 
 @NgModule({
   imports: [
@@ -15,6 +15,7 @@ import { RecordListComponent, RecordComponent, RecordFormComponent } from '.';
     FlexLayoutModule,
     AccountingRoutingModule
   ],
-  declarations: [RecordListComponent, RecordComponent, RecordFormComponent]
+  declarations: [RecordListComponent, RecordComponent, RecordFormComponent],
+  providers: [RecordPromiseService]
 })
 export class AccountingModule { }

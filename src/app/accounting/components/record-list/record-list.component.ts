@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Record } from '../../models/record.model';
-import { RecordArrayService } from '../../services/record-array.service';
+import { RecordArrayService, RecordPromiseService } from '../../services';
 
 @Component({
   selector: 'app-record-list',
@@ -14,7 +14,8 @@ export class RecordListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private recordArrayService: RecordArrayService
+    private recordArrayService: RecordArrayService,
+    private recordPromiseService: RecordPromiseService
   ) { }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class RecordListComponent implements OnInit {
   }
 
   private async getRecords() {
-    this.records = await this.recordArrayService.getRecords();
+    this.records = await this.recordPromiseService.getRecords();
   }
 
 }
