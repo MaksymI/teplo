@@ -18,6 +18,7 @@ export class RecordComponent {
 
   @Output() saveRecord = new EventEmitter<Record>();
   @Output() editRecord = new EventEmitter<Record>();
+  @Output() deleteRecord = new EventEmitter<Record>();
 
   onSaveRecord(): void {
     this.saveRecord.emit(this.record);
@@ -25,5 +26,9 @@ export class RecordComponent {
 
   onEditRecord(): void {
     this.editRecord.emit(this.record);
+  }
+
+  onDeleteRecord(): void {
+    this.deleteRecord.emit(this.record);
   }
 }

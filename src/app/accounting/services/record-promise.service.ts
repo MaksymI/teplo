@@ -43,7 +43,6 @@ export class RecordPromiseService {
   }
 
   createRecord(record: Record): Promise<Record> {
-    console.log(record);
     const url = `${this.recordsUrl}/add`;
     const body = JSON.stringify(record);
     const options = {
@@ -52,6 +51,16 @@ export class RecordPromiseService {
 
     return this.http
       .post(url, body, options)
+      .toPromise()
+      .then(response => <Record[]>response)
+      .catch(this.handleError);
+  }
+
+  deleteRecord(record: Record): Promise<Record> {
+    const url = `${this.recordsUrl}/${record._id}`;
+
+    return this.http
+      .delete(url)
       .toPromise()
       .then(response => <Record[]>response)
       .catch(this.handleError);

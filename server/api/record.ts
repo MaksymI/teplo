@@ -55,3 +55,17 @@ export const createRecord = (req: Request, res: Response) => {
       res.status(404).send('Unable to create record!');
   });
 };
+
+export const deleteRecordById = (req: Request, res: Response) => {
+  console.log('deleteRecordById() invoked');
+  Record.findByIdAndRemove(req.params.recordID)
+  .exec((err, record) => {
+    if (err) {
+      console.log('Error deleting record!');
+      res.status(404).send('Not Found!');
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).send(record);
+    }
+  });
+};

@@ -9,7 +9,8 @@
      *ngFor="let record of records"
      [record]="record"
      (saveRecord)="onSaveRecord($event)"
-     (editRecord)="onEditRecord($event)">
+     (editRecord)="onEditRecord($event)"
+     (deleteRecord)="onDeleteRecord($event)">
     </app-record>
   </mat-card>
 </div>

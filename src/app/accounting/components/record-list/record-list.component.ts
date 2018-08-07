@@ -35,6 +35,14 @@ export class RecordListComponent implements OnInit {
     this.router.navigate(link);
   }
 
+  onDeleteRecord(record: Record): void {
+    // this.recordPromiseService
+    // .deleteRecord(record)
+    // .then(() => (this.records = this.records.filter(r => r._id !== record._id)))
+    // .catch(err => console.log(err));
+    this.deleteRecord(record).catch(err => console.log(err));
+  }
+
   private async getRecords() {
     this.records = await this.recordPromiseService.getRecords();
   }
@@ -51,6 +59,11 @@ export class RecordListComponent implements OnInit {
         this.records.splice(index, 1, updatedRecord);
       }
     }
+  }
+
+  private async deleteRecord(record: Record) {
+    const deletedRecord = await this.recordPromiseService.deleteRecord(record);
+    this.records = this.records.filter(r => r._id !== deletedRecord._id);
   }
 
 }
