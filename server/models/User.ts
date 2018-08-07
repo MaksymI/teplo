@@ -18,6 +18,8 @@ const userSchema = new mongoose.Schema({
     dropDups: true,
     trim: true
   },
+  firstName: String,
+  lastName: String,
   name: String,
   gender: String,
   password: String,

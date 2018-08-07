@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { User } from '../../models/user.model';
-import { UserArrayService } from '../../services/user-array.service';
+import { UserArrayService, UserObservableService } from '../../services';
 
 @Component({
   selector: 'app-user-list',
@@ -20,11 +20,12 @@ export class UserListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userArrayService: UserArrayService
+    private userArrayService: UserArrayService,
+    private userObservableService: UserObservableService
   ) {}
 
   ngOnInit() {
-    this.users$ = this.userArrayService.getUsers();
+    this.users$ = this.userObservableService.getUsers();
 
     this.route.paramMap
       .pipe(
