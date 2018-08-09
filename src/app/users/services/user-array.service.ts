@@ -6,9 +6,9 @@ import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 
 const userList: Array<User> = [
-  new User(1, 'Vasyl', 'Kilov'),
-  new User(2, 'Max', 'Fedoriv'),
-  new User(3, 'Alex', 'Furist')
+  new User('1', 'Vasyl', 'Kilov'),
+  new User('2', 'Max', 'Fedoriv'),
+  new User('3', 'Alex', 'Furist')
 ];
 
 const userListObservable: Observable<Array<User>> = of(userList);
@@ -22,7 +22,7 @@ export class UserArrayService {
   getUser(id: number | string): Observable<User> {
     return this.getUsers()
       .pipe(
-        map((users: Array<User>) => users.find(user => user.id === +id)),
+        map((users: Array<User>) => users.find(user => user._id === id)),
         catchError(err => throwError('Error in getUser method'))
       );
   }
@@ -32,7 +32,7 @@ export class UserArrayService {
   }
 
   updateUser(user: User): void {
-    const i = userList.findIndex(u => u.id === user.id);
+    const i = userList.findIndex(u => u._id === user._id);
     if (i > -1) {
       userList.splice(i, 1, user);
     }

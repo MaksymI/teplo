@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { User } from '../../models/user.model';
-import { UserArrayService, UserObservableService } from '../../services';
+import { UserObservableService } from '../../services';
 
 @Component({
   selector: 'app-user-list',
@@ -20,7 +20,6 @@ export class UserListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userArrayService: UserArrayService,
     private userObservableService: UserObservableService
   ) {}
 
@@ -29,9 +28,11 @@ export class UserListComponent implements OnInit {
 
     this.route.paramMap
       .pipe(
-        switchMap((params: Params) =>
-          this.userArrayService.getUser(+params.get('editedUserID'))
-        )
+        switchMap((params: Params) => {
+          return params.get('editedUserID')
+            ? this.userObservableService.getUser(params.get('editedUserID'))
+            : of(null);
+        })
       )
       .subscribe(
         (user: User) => {
@@ -45,7 +46,7 @@ export class UserListComponent implements OnInit {
   }
 
   onEditUser(user: User) {
-    const link = ['/users/edit', user.id];
+    const link = ['/users/edit', user._id];
     this.router.navigate(link);
     // or
     // const link = ['edit', user.id];
@@ -54,7 +55,7 @@ export class UserListComponent implements OnInit {
 
   isEdited(user: User) {
     if (this.editedUser) {
-      return user.id === this.editedUser.id;
+      return user._id === this.editedUser._id;
     }
     return false;
   }

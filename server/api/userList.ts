@@ -16,16 +16,16 @@ export const getUsers = (req: Request, res: Response) => {
     });
 };
 
-export const getRecordById = (req: Request, res: Response) => {
-  console.log('getRecordById() invoked');
-  Record.findById(req.params.recordID)
-  .exec((err, record) => {
+export const getUsersById = (req: Request, res: Response) => {
+  console.log('getUsersById() invoked');
+  NewUser.findById(req.params.userID)
+  .exec((err, user) => {
     if (err) {
-      console.log('Error retrieving record!');
+      console.log('Error retrieving user!');
       res.status(404).send('Not Found!');
     } else {
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(record);
+      res.status(200).send(user);
     }
   });
 };

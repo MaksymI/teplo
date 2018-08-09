@@ -33,9 +33,9 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   onSaveUser() {
     const user = { ...this.user };
 
-    if (user.id) {
+    if (user._id) {
       this.userArrayService.updateUser(user);
-      this.router.navigate(['/users', { editedUserID: user.id }]);
+      this.router.navigate(['/users', { editedUserID: user._id }]);
     } else {
       this.userArrayService.addUser(user);
       this.goBack();
