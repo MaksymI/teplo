@@ -16,7 +16,7 @@ export const getUsers = (req: Request, res: Response) => {
     });
 };
 
-export const getUsersById = (req: Request, res: Response) => {
+export const getUserById = (req: Request, res: Response) => {
   console.log('getUsersById() invoked');
   NewUser.findById(req.params.userID)
   .exec((err, user) => {
@@ -30,16 +30,16 @@ export const getUsersById = (req: Request, res: Response) => {
   });
 };
 
-export const updateRecordById = (req: Request, res: Response) => {
-  console.log('updateRecordById() invoked');
-  Record.update({ _id: req.params.recordID }, req.body)
-  .exec((err, record) => {
+export const updateUserById = (req: Request, res: Response) => {
+  console.log('updateUserById() invoked');
+  NewUser.update({ _id: req.params.userID }, req.body)
+  .exec((err, user) => {
     if (err) {
-      console.log('Error updating record!');
+      console.log('Error updating user!');
       res.status(404).send('Not Found!');
     } else {
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(record);
+      res.status(200).send(user);
     }
   });
 };
