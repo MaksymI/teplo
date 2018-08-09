@@ -53,6 +53,10 @@ export class UserListComponent implements OnInit {
     // this.router.navigate(link, {relativeTo: this.route});
   }
 
+  onDeleteUser(user: User) {
+    this.users$ = this.userObservableService.deleteUser(user);
+  }
+
   isEdited(user: User) {
     if (this.editedUser) {
       return user._id === this.editedUser._id;

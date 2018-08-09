@@ -58,16 +58,16 @@ export const createUser = (req: Request, res: Response) => {
   });
 };
 
-export const deleteRecordById = (req: Request, res: Response) => {
+export const deleteUserById = (req: Request, res: Response) => {
   console.log('deleteRecordById() invoked');
-  Record.findByIdAndRemove(req.params.recordID)
-  .exec((err, record) => {
+  NewUser.findByIdAndRemove(req.params.userID)
+  .exec((err, user) => {
     if (err) {
-      console.log('Error deleting record!');
-      res.status(404).send('Not Found!');
+      console.log('Error deleting user!');
+      res.status(404).send(`Not Found! ${err}`);
     } else {
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(record);
+      res.status(200).send(user);
     }
   });
 };
