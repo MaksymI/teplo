@@ -57,7 +57,8 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
 
   goBack() {
     // this.router.navigate(['./../../'], { relativeTo: this.route });
-    this.location.back();
+    // this.location.back(); caused last edited user even created
+    this.router.navigate(['/users']);
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
