@@ -4,10 +4,12 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpParams
+  HttpParams,
+  HttpResponse
 } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class MyInterceptor implements HttpInterceptor {
@@ -26,6 +28,17 @@ export class MyInterceptor implements HttpInterceptor {
       cloneRequest = req;
     }
 
-    return next.handle(cloneRequest);
+    return next.handle(cloneRequest).pipe(
+      // response interceptor
+      map((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          // do stuff with response
+          console.log('Response Interceptor');
+          console.log(event);
+          console.log(event.body);
+          return event;
+        }
+      })
+    );
   }
 }
