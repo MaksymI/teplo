@@ -21,6 +21,7 @@ import {
   AboutComponent,
   MessagesComponent
  } from '.';
+import { CoreStoreModule } from './+store/core-store.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {
     SharedModule,
     MaterialModule,
     AccountingModule,
+    CoreStoreModule,
     AppRoutingModule
   ],
   providers: [
