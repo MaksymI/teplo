@@ -34,7 +34,9 @@ export function recordsReducer(
       return { ...state };
     }
 
-    default:
+    default: {
+      console.log('UNKNOWN_RECORD action being hadled');
       return state;
+    }
   }
 }
