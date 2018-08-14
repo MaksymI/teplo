@@ -6,8 +6,8 @@ export interface AccountingState {
 
 export const initialAccountingState: AccountingState = {
   data: [
-    new Record(null, 999, null, null),
-    new Record(null, 888, null, null),
-    new Record(null, 777, null, null)
+    new Record('1', 999, null, null),
+    new Record('2', 888, null, null),
+    new Record('3', 777, null, null)
   ]
 };
