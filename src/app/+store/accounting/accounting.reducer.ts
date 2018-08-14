@@ -1,6 +1,9 @@
 import { AccountingActions, AccountingActionTypes } from './accounting.actions';
 import { AccountingState, initialAccountingState } from './accounting.state';
 
+import { Record } from '../../accounting/models/record.model';
+import { stat } from 'fs';
+
 
 export function recordsReducer(
   state = initialAccountingState,
@@ -32,6 +35,21 @@ export function recordsReducer(
     case AccountingActionTypes.DELETE_RECORD: {
       console.log('DELETE_RECORD action being hadled');
       return { ...state };
+    }
+
+    case AccountingActionTypes.SAVE_RECORD: {
+      console.log('SAVE_RECORD action being hadled');
+
+      const id = (<Record>action.payload)._id;
+      const data = state.data.map(record => {
+        if (record._id === id) {
+          return { ...action.payload, saved: true};
+        }
+
+        return record;
+      });
+
+      return { ...state, data };
     }
 
     default: {

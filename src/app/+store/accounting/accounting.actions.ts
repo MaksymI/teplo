@@ -7,7 +7,8 @@ export enum AccountingActionTypes {
   GET_RECORD = '[Accounting] GET_RECORD',
   CREATE_RECORD = '[Accounting] CREATE_RECORD',
   UPDATE_RECORD = '[Accounting] UPDATE_RECORD',
-  DELETE_RECORD = '[Accounting] DELETE_RECORD'
+  DELETE_RECORD = '[Accounting] DELETE_RECORD',
+  SAVE_RECORD = '[Accounting] SAVE_RECORD'
 }
 
 export class GetRecords implements Action {
@@ -34,6 +35,11 @@ export class DeleteRecord implements Action {
   constructor(public payload: Record) {}
 }
 
+export class SaveRecord implements Action {
+  readonly type = AccountingActionTypes.SAVE_RECORD;
+  constructor(public payload: Record) {}
+}
+
 
 
 
@@ -42,4 +48,5 @@ export type AccountingActions =
   | GetRecord
   | CreateRecord
   | UpdateRecord
-  | DeleteRecord;
+  | DeleteRecord
+  | SaveRecord;

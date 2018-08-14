@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 // NgRx
 import { Store, select } from '@ngrx/store';
 import { AppState, AccountingState } from '../../../+store';
+import * as RecordsActions from '../../../+store/accounting/accounting.actions';
 
 import { Observable } from 'rxjs';
 
@@ -31,7 +32,7 @@ export class RecordListComponent implements OnInit {
   }
 
   onSaveRecord(record: Record): void {
-    this.updateRecord(record).catch(err => console.log(err));
+    this.store.dispatch(new RecordsActions.SaveRecord(record));
   }
 
   onEditRecord(record: Record): void {
@@ -50,20 +51,6 @@ export class RecordListComponent implements OnInit {
     // .then(() => (this.records = this.records.filter(r => r._id !== record._id)))
     // .catch(err => console.log(err));
     this.deleteRecord(record).catch(err => console.log(err));
-  }
-
-  private async updateRecord(record: Record) {
-    const updatedRecord = await this.recordPromiseService.updateRecord({
-      ...record,
-      saved: true
-    });
-
-    if (updatedRecord) {
-      const index = this.records.findIndex(r => r._id === updatedRecord._id);
-      if (index > -1) {
-        this.records.splice(index, 1, updatedRecord);
-      }
-    }
   }
 
   private async deleteRecord(record: Record) {
