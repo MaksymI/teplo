@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+// NgRx
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../+store';
+
 import { Record } from '../../models/record.model';
 import { RecordPromiseService } from '../../services';
 
@@ -14,11 +18,13 @@ export class RecordListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private recordPromiseService: RecordPromiseService
+    private recordPromiseService: RecordPromiseService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
     this.getRecords().catch(err => console.log(err));
+    console.log('We have a store! ', this.store);
   }
 
   onSaveRecord(record: Record): void {
