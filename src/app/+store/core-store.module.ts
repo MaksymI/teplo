@@ -4,11 +4,14 @@ import { CommonModule } from '@angular/common';
 // @NgRx
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../../environments/environment';
 
 @NgModule({
   imports: [
-    CommonModule, StoreModule.forRoot({}),
+    CommonModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     // Insrumentation must be imported after importing StoreModule (config is optional)
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
-import { recordsReducer } from '../+store';
+import { EffectsModule } from '@ngrx/effects';
+import { AccountingEffects, recordsReducer } from '../+store';
 
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
@@ -17,7 +18,8 @@ import { RecordListComponent, RecordComponent, RecordFormComponent, RecordPromis
     MaterialModule,
     FlexLayoutModule,
     AccountingRoutingModule,
-    StoreModule.forFeature('records', recordsReducer)
+    StoreModule.forFeature('records', recordsReducer),
+    EffectsModule.forFeature([AccountingEffects])
   ],
   declarations: [RecordListComponent, RecordComponent, RecordFormComponent],
   providers: [RecordPromiseService]
