@@ -6,7 +6,7 @@
     </button>
     <br>
     <app-record
-     *ngFor="let record of records"
+     *ngFor="let record of (recordsState$ | async).data"
      [record]="record"
      (saveRecord)="onSaveRecord($event)"
      (editRecord)="onEditRecord($event)"

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 // NgRx
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../+store';
+import { Store, select } from '@ngrx/store';
+import { AppState, AccountingState } from '../../../+store';
+
+import { Observable } from 'rxjs';
 
 import { Record } from '../../models/record.model';
 import { RecordPromiseService } from '../../services';
@@ -15,6 +17,7 @@ import { RecordPromiseService } from '../../services';
 })
 export class RecordListComponent implements OnInit {
   records: Array<Record>;
+  recordsState$: Observable<AccountingState>;
 
   constructor(
     private router: Router,
@@ -23,8 +26,8 @@ export class RecordListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getRecords().catch(err => console.log(err));
     console.log('We have a store! ', this.store);
+    this.recordsState$ = this.store.pipe(select('records'));
   }
 
   onSaveRecord(record: Record): void {
@@ -47,10 +50,6 @@ export class RecordListComponent implements OnInit {
     // .then(() => (this.records = this.records.filter(r => r._id !== record._id)))
     // .catch(err => console.log(err));
     this.deleteRecord(record).catch(err => console.log(err));
-  }
-
-  private async getRecords() {
-    this.records = await this.recordPromiseService.getRecords();
   }
 
   private async updateRecord(record: Record) {
