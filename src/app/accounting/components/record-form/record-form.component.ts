@@ -21,7 +21,7 @@ import { AutoUnsubscribe } from '../../../';
 @AutoUnsubscribe()
 export class RecordFormComponent implements OnInit {
   record: Record;
-  method: String;
+  method: string;
   recordState$: Observable<AccountingState>;
 
   private sub: Subscription;
