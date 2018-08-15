@@ -17,7 +17,7 @@ export class RecordPromiseService {
       .catch(this.handleError);
   }
 
-  getRecord(id: number ): Promise<Record> {
+  getRecord(id: string ): Promise<Record> {
     const url = `${this.recordsUrl}/${id}`;
 
     return this.http
