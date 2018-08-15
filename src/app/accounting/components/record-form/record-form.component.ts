@@ -1,44 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+
+// NgRx
+import { Store, select } from '@ngrx/store';
+import { AppState, AccountingState } from '../../../+store';
+import * as RecordsActions from '../../../+store/accounting/accounting.actions';
+// RxJs
+import { Observable, Subscription } from 'rxjs';
 
 import { Record } from '../../models/record.model';
-import { RecordPromiseService } from '../../services/';
+import { RecordPromiseService } from '../../services';
+import { AutoUnsubscribe } from '../../../';
 
 @Component({
   selector: 'app-record-form',
   templateUrl: './record-form.component.html',
   styleUrls: ['./record-form.component.css']
 })
+@AutoUnsubscribe()
 export class RecordFormComponent implements OnInit {
   record: Record;
   method: String;
+  recordState$: Observable<AccountingState>;
+
+  private sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private recordPromiseService: RecordPromiseService
+    private recordPromiseService: RecordPromiseService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
     this.record = new Record(null, null, null);
 
-    this.route.paramMap
-    .pipe(
-      switchMap((params: Params) => {
-        return params.get('recordID')
-          ? this.recordPromiseService.getRecord(params.get('recordID'))
-          // : Promise.resolve(null);
-          : Promise.resolve(this.record);
-      })
-    )
-    .subscribe(record => {
-        this.record = {...record};
-        this.method = record._id ? 'CHANGE' : 'CREATE';
-      },
-      err => console.log(err)
+    this.recordState$ = this.store.pipe(select('records'));
+    this.sub = this.recordState$.subscribe(
+      recordsState => (this.record = recordsState.selectedRecord)
     );
+
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('recordID');
+      if (id) {
+        this.store.dispatch(new RecordsActions.GetRecord(id));
+      }
+    });
   }
 
   onChangeRecord() {

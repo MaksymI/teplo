@@ -5,7 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as RecordsActions from './accounting.actions';
 
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { pluck, switchMap } from 'rxjs/operators';
 
 import { RecordPromiseService } from '../../accounting/services';
 
@@ -27,6 +27,18 @@ export class AccountingEffects {
       this.recordPromiseService
       .getRecords()
       .then(records => new RecordsActions.GetRecordsSuccess(records))
+      .catch(err => new RecordsActions.GetRecordsError(err))
+    )
+  );
+
+  @Effect()
+  getRecord$: Observable<Action> = this.actions$.pipe(
+    ofType(RecordsActions.AccountingActionTypes.GET_RECORD),
+    pluck('payload'),
+    switchMap(payload =>
+      this.recordPromiseService
+      .getRecord(payload.toString())
+      .then(record => new RecordsActions.GetRecordSuccess(record))
       .catch(err => new RecordsActions.GetRecordsError(err))
     )
   );

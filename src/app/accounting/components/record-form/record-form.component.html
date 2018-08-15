@@ -21,7 +21,7 @@
       <button mat-raised-button color="primary"
         form="record-form"
         [disabled]="form.invalid">
-        {{method}}
+        {{ method | slice: 0: 6 | uppercase }}
       </button>
       <button type="reset" accesskey="r" mat-button color="primary"
         routerLink="/record-list">
