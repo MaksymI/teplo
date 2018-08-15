@@ -4,6 +4,8 @@ import { Record } from '../../accounting/models/record.model';
 // [Accounting] - namespace
 export enum AccountingActionTypes {
   GET_RECORDS = '[Accounting] GET_RECORDS',
+  GET_RECORDS_SUCCESS = '[Accounting] GET_RECORDS_SUCCESS',
+  GET_RECORDS_ERROR = '[Accounting] GET_RECORDS_ERROR',
   GET_RECORD = '[Accounting] GET_RECORD',
   CREATE_RECORD = '[Accounting] CREATE_RECORD',
   UPDATE_RECORD = '[Accounting] UPDATE_RECORD',
@@ -13,6 +15,16 @@ export enum AccountingActionTypes {
 
 export class GetRecords implements Action {
   readonly type = AccountingActionTypes.GET_RECORDS;
+}
+
+export class GetRecordsSuccess implements Action {
+  readonly type = AccountingActionTypes.GET_RECORDS_SUCCESS;
+  constructor(public payload: Record[]) {}
+}
+
+export class GetRecordsError implements Action {
+  readonly type = AccountingActionTypes.GET_RECORDS_ERROR;
+  constructor(public payload: Error | string) {}
 }
 
 export class GetRecord implements Action {
@@ -45,6 +57,8 @@ export class SaveRecord implements Action {
 
 export type AccountingActions =
   | GetRecords
+  | GetRecordsSuccess
+  | GetRecordsError
   | GetRecord
   | CreateRecord
   | UpdateRecord

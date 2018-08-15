@@ -1,11 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+
+import { Action } from '@ngrx/store';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as RecordsActions from './accounting.actions';
+
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { RecordPromiseService } from '../../accounting/services';
 
 
 @Injectable()
 export class AccountingEffects {
 
-  constructor(private actions$: Actions) {
+  constructor(
+    private actions$: Actions,
+    private recordPromiseService: RecordPromiseService
+  ) {
     console.log('[RECORDS EFFECTS]');
   }
+
+  @Effect()
+  getRecords$: Observable<Action> = this.actions$.pipe(
+    ofType(RecordsActions.AccountingActionTypes.GET_RECORDS),
+    switchMap((action: RecordsActions.GetRecords) =>
+      this.recordPromiseService
+      .getRecords()
+      .then(records => new RecordsActions.GetRecordsSuccess(records))
+      .catch(err => new RecordsActions.GetRecordsError(err))
+    )
+  );
 }

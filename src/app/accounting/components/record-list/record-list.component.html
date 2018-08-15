@@ -1,16 +1,21 @@
 <div class="container">
   <mat-card class="sizer">
+    <mat-card-header>
       <button mat-raised-button color="primary"
       (click)="onCreateRecord()">
       New Record
-    </button>
+      </button>
+    </mat-card-header>
     <br>
-    <app-record
-     *ngFor="let record of (recordsState$ | async).data"
-     [record]="record"
-     (saveRecord)="onSaveRecord($event)"
-     (editRecord)="onEditRecord($event)"
-     (deleteRecord)="onDeleteRecord($event)">
-    </app-record>
+    <mat-card-title *ngIf="(recordsState$ | async).error as value">{{value}}</mat-card-title>
+    <mat-card-content>
+      <app-record
+      *ngFor="let record of (recordsState$ | async).data"
+      [record]="record"
+      (saveRecord)="onSaveRecord($event)"
+      (editRecord)="onEditRecord($event)"
+      (deleteRecord)="onDeleteRecord($event)">
+      </app-record>
+    </mat-card-content>
   </mat-card>
 </div>
