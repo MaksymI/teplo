@@ -43,6 +43,7 @@ export class RecordFormComponent implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       const id = params.get('recordID');
+      this.method = id ? 'updateRecord' : 'createRecord';
       if (id) {
         this.store.dispatch(new RecordsActions.GetRecord(id));
       }
@@ -52,8 +53,7 @@ export class RecordFormComponent implements OnInit {
   onChangeRecord() {
     const record = { ...this.record, ...{saved: false} };
 
-    const method = record._id ? 'updateRecord' : 'createRecord';
-    this.recordPromiseService[method](record)
+    this.recordPromiseService[this.method](record)
       .then(() => this.goBack())
       .catch(err => console.log(err));
   }
