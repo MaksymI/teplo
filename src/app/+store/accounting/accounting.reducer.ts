@@ -2,8 +2,6 @@ import { AccountingActions, AccountingActionTypes } from './accounting.actions';
 import { AccountingState, initialAccountingState } from './accounting.state';
 
 import { Record } from '../../accounting/models/record.model';
-import { stat } from 'fs';
-import { STATE_PROVIDERS } from '@ngrx/store/src/state';
 
 export function recordsReducer(
   state = initialAccountingState,
