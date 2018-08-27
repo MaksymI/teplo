@@ -10,7 +10,7 @@ import * as RecordsActions from '../../../+store/accounting/accounting.actions';
 import { Observable, Subscription } from 'rxjs';
 
 import { Record } from '../../models/record.model';
-import { RecordPromiseService } from '../../services';
+
 import { AutoUnsubscribe } from '../../../';
 
 @Component({
@@ -29,9 +29,8 @@ export class RecordFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private recordPromiseService: RecordPromiseService,
     private store: Store<AppState>
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.record = new Record(null, null, null);
@@ -51,15 +50,19 @@ export class RecordFormComponent implements OnInit {
   }
 
   onChangeRecord() {
-    const record = { ...this.record, ...{saved: false} };
+    const record = { ...this.record, ...{ saved: false } };
 
-    this.recordPromiseService[this.method](record)
-      .then(() => this.goBack())
-      .catch(err => console.log(err));
+    // this.recordPromiseService[this.method](record)
+    //   .then(() => this.goBack())
+    //   .catch(err => console.log(err));
+    if (record._id) {
+      this.store.dispatch(new RecordsActions.UpdateRecord(record));
+    } else {
+      this.store.dispatch(new RecordsActions.CreateRecord(record));
+    }
   }
 
   goBack(): void {
     this.location.back();
   }
-
 }
