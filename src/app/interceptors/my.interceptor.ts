@@ -34,8 +34,8 @@ export class MyInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           // do stuff with response
           console.log('Response Interceptor');
-          console.log(event);
-          console.log(event.body);
+          console.log('event from response interceptor: ', event);
+          console.log('event.body from response interceptor: ', event.body);
           return event;
         }
       })

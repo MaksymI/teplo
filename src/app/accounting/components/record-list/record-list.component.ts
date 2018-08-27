@@ -28,7 +28,9 @@ export class RecordListComponent implements OnInit {
   }
 
   onSaveRecord(record: Record): void {
+    console.log('record: ', record);
     const savedRecord = { ...record, saved: true };
+    console.log('savedRecord: ', savedRecord);
     this.store.dispatch(new RecordsActions.UpdateRecord(savedRecord));
   }
 
