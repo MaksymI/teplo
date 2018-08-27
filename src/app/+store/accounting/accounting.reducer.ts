@@ -2,6 +2,8 @@ import { AccountingActions, AccountingActionTypes } from './accounting.actions';
 import { AccountingState, initialAccountingState } from './accounting.state';
 
 import { Record } from '../../accounting/models/record.model';
+import { stat } from 'fs';
+import { STATE_PROVIDERS } from '@ngrx/store/src/state';
 
 export function recordsReducer(
   state = initialAccountingState,
@@ -124,6 +126,26 @@ export function recordsReducer(
     case AccountingActionTypes.DELETE_RECORD: {
       console.log('DELETE_RECORD action being hadled');
       return { ...state };
+    }
+
+    case AccountingActionTypes.DELETE_RECORD_SUCCESS: {
+      console.log('DELETE_RECORD_SUCCESS action being hadled');
+      const record = { ...(<Record>action.payload) };
+      const data = state.data.filter(r => r._id !== record._id);
+
+      return {
+        ...state,
+        data
+      };
+    }
+
+    case AccountingActionTypes.DELETE_RECORD_ERROR: {
+      console.log('DELETE_RECORD_ERROR action being hadled');
+      const error = action.payload;
+      return {
+        ...state,
+        error
+      };
     }
 
     case AccountingActionTypes.SAVE_RECORD: {

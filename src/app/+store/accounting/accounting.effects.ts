@@ -77,4 +77,20 @@ export class AccountingEffects {
         .catch(err => new RecordsActions.CreateRecordError(err))
     )
   );
+
+  @Effect()
+  deleteRecord$: Observable<Action> = this.actions$.pipe(
+    ofType<RecordsActions.CreateRecord>(
+      RecordsActions.AccountingActionTypes.DELETE_RECORD
+    ),
+    pluck('payload'),
+    concatMap((payload: Record) =>
+      this.recordPromiseService
+        .deleteRecord(payload)
+        .then(record => {
+          return new RecordsActions.DeleteRecordSuccess(record);
+        })
+        .catch(err => new RecordsActions.DeleteRecordError(err))
+    )
+  );
 }

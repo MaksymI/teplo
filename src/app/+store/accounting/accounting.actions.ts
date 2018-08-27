@@ -20,6 +20,9 @@ export enum AccountingActionTypes {
   UPDATE_RECORD_ERROR = '[Accounting] UPDATE_RECORD_ERROR',
 
   DELETE_RECORD = '[Accounting] DELETE_RECORD',
+  DELETE_RECORD_SUCCESS = '[Accounting] DELETE_RECORD_SUCCESS',
+  DELETE_RECORD_ERROR = '[Accounting] DELETE_RECORD_ERROR',
+
   SAVE_RECORD = '[Accounting] SAVE_RECORD'
 }
 
@@ -87,6 +90,16 @@ export class DeleteRecord implements Action {
   constructor(public payload: Record) {}
 }
 
+export class DeleteRecordSuccess implements Action {
+  readonly type = AccountingActionTypes.DELETE_RECORD_SUCCESS;
+  constructor(public payload: Record) {}
+}
+
+export class DeleteRecordError implements Action {
+  readonly type = AccountingActionTypes.DELETE_RECORD_ERROR;
+  constructor(public payload: Error | string) {}
+}
+
 export class SaveRecord implements Action {
   readonly type = AccountingActionTypes.SAVE_RECORD;
   constructor(public payload: Record) {}
@@ -106,4 +119,6 @@ export type AccountingActions =
   | UpdateRecordSuccess
   | UpdateRecordError
   | DeleteRecord
+  | DeleteRecordSuccess
+  | DeleteRecordError
   | SaveRecord;

@@ -16,13 +16,9 @@ import { Record } from '../../models/record.model';
   styleUrls: ['./record-list.component.css']
 })
 export class RecordListComponent implements OnInit {
-  // records: Array<Record>;
   recordsState$: Observable<AccountingState>;
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>
-  ) { }
+  constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() {
     console.log('We have a store! ', this.store);
@@ -46,16 +42,6 @@ export class RecordListComponent implements OnInit {
   }
 
   onDeleteRecord(record: Record): void {
-    // this.recordPromiseService
-    // .deleteRecord(record)
-    // .then(() => (this.records = this.records.filter(r => r._id !== record._id)))
-    // .catch(err => console.log(err));
-    // this.deleteRecord(record).catch(err => console.log(err));
+    this.store.dispatch(new RecordsActions.DeleteRecord(record));
   }
-
-  // private async deleteRecord(record: Record) {
-  //   const deletedRecord = await this.recordPromiseService.deleteRecord(record);
-  //   this.records = this.records.filter(r => r._id !== deletedRecord._id);
-  // }
-
 }
