@@ -60,4 +60,21 @@ export class AccountingEffects {
         .catch(err => new RecordsActions.UpdateRecordError(err))
     )
   );
+
+  @Effect()
+  createRecord$: Observable<Action> = this.actions$.pipe(
+    ofType<RecordsActions.CreateRecord>(
+      RecordsActions.AccountingActionTypes.CREATE_RECORD
+    ),
+    pluck('payload'),
+    concatMap((payload: Record) =>
+      this.recordPromiseService
+        .createRecord(payload)
+        .then(record => {
+          this.router.navigate(['/record-list']);
+          return new RecordsActions.CreateRecordSuccess(record);
+        })
+        .catch(err => new RecordsActions.CreateRecordError(err))
+    )
+  );
 }

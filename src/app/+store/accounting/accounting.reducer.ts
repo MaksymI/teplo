@@ -22,7 +22,8 @@ export function recordsReducer(
         ...state,
         data,
         loading: false,
-        loaded: true
+        loaded: true,
+        selectedRecord: null
       };
     }
 
@@ -70,6 +71,26 @@ export function recordsReducer(
     case AccountingActionTypes.CREATE_RECORD: {
       console.log('CREATE_RECORD action being hadled');
       return { ...state };
+    }
+
+    case AccountingActionTypes.CREATE_RECORD_SUCCESS: {
+      console.log('CREATE_RECORD_SUCCESS action being hadled');
+      const record = { ...(<Record>action.payload) };
+      const data = [...state.data, record];
+
+      return {
+        ...state,
+        data
+      };
+    }
+
+    case AccountingActionTypes.CREATE_RECORD_ERROR: {
+      console.log('CREATE_RECORD_ERROR action being hadled');
+      const error = action.payload;
+      return {
+        ...state,
+        error
+      };
     }
 
     case AccountingActionTypes.UPDATE_RECORD: {

@@ -33,12 +33,14 @@ export class RecordFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.record = new Record(null, null, null);
-
     this.recordState$ = this.store.pipe(select('records'));
-    this.sub = this.recordState$.subscribe(
-      recordsState => (this.record = recordsState.selectedRecord)
-    );
+    this.sub = this.recordState$.subscribe(recordsState => {
+      if (recordsState.selectedRecord) {
+        this.record = recordsState.selectedRecord;
+      } else {
+        this.record = new Record(null, null, null);
+      }
+    });
 
     this.route.paramMap.subscribe(params => {
       const id = params.get('recordID');
@@ -52,9 +54,6 @@ export class RecordFormComponent implements OnInit {
   onChangeRecord() {
     const record = { ...this.record, ...{ saved: false } };
 
-    // this.recordPromiseService[this.method](record)
-    //   .then(() => this.goBack())
-    //   .catch(err => console.log(err));
     if (record._id) {
       this.store.dispatch(new RecordsActions.UpdateRecord(record));
     } else {
