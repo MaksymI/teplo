@@ -29,17 +29,17 @@ export const getRecordById = (req: Request, res: Response) => {
 
 export const updateRecordById = (req: Request, res: Response) => {
   console.log('updateRecordById() invoked');
-  Record.findOneAndUpdate({ _id: req.params.recordID }, req.body).exec(
-    (err, record) => {
-      if (err) {
-        console.log('Error updating record!');
-        res.status(404).send('Not Found!');
-      } else {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).send(record);
-      }
+  Record.findOneAndUpdate({ _id: req.params.recordID }, req.body, {
+    new: true
+  }).exec((err, record) => {
+    if (err) {
+      console.log('Error updating record!');
+      res.status(404).send('Not Found!');
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).send(record);
     }
-  );
+  });
 };
 
 export const createRecord = (req: Request, res: Response) => {
