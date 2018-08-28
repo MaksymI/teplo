@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 // NgRx
 import { Store, select } from '@ngrx/store';
-import { AppState, AccountingState } from '../../../+store';
+import { AppState, AccountingState, getRecordsState } from '../../../+store';
 import * as RecordsActions from '../../../+store/accounting/accounting.actions';
 
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ export class RecordListComponent implements OnInit {
 
   ngOnInit() {
     console.log('We have a store! ', this.store);
-    this.recordsState$ = this.store.pipe(select('records'));
+    this.recordsState$ = this.store.pipe(select(getRecordsState));
 
     this.store.dispatch(new RecordsActions.GetRecords());
   }

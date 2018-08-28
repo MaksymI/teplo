@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 // NgRx
 import { Store, select } from '@ngrx/store';
-import { AppState, AccountingState } from '../../../+store';
+import { AppState, AccountingState, getRecordsState } from '../../../+store';
 import * as RecordsActions from '../../../+store/accounting/accounting.actions';
 // RxJs
 import { Observable, Subscription } from 'rxjs';
@@ -33,7 +33,7 @@ export class RecordFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.recordState$ = this.store.pipe(select('records'));
+    this.recordState$ = this.store.pipe(select(getRecordsState));
     this.sub = this.recordState$.subscribe(recordsState => {
       if (recordsState.selectedRecord) {
         this.record = recordsState.selectedRecord;
