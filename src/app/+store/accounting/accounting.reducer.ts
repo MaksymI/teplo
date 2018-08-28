@@ -146,21 +146,6 @@ export function recordsReducer(
       };
     }
 
-    case AccountingActionTypes.SAVE_RECORD: {
-      console.log('SAVE_RECORD action being hadled');
-
-      const id = (<Record>action.payload)._id;
-      const data = state.data.map(record => {
-        if (record._id === id) {
-          return { ...action.payload, saved: true };
-        }
-
-        return record;
-      });
-
-      return { ...state, data };
-    }
-
     default: {
       console.log('UNKNOWN_RECORD action being hadled');
       return state;
