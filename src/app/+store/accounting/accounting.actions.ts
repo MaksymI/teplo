@@ -7,10 +7,6 @@ export enum AccountingActionTypes {
   GET_RECORDS_SUCCESS = '[Accounting] GET_RECORDS_SUCCESS',
   GET_RECORDS_ERROR = '[Accounting] GET_RECORDS_ERROR',
 
-  GET_RECORD = '[Accounting] GET_RECORD',
-  GET_RECORD_SUCCESS = '[Accounting] GET_RECORD_SUCCESS',
-  GET_RECORD_ERROR = '[Accounting] GET_RECORD_ERROR',
-
   CREATE_RECORD = '[Accounting] CREATE_RECORD',
   CREATE_RECORD_SUCCESS = '[Accounting] CREATE_RECORD_SUCCESS',
   CREATE_RECORD_ERROR = '[Accounting] CREATE_RECORD_ERROR',
@@ -35,21 +31,6 @@ export class GetRecordsSuccess implements Action {
 
 export class GetRecordsError implements Action {
   readonly type = AccountingActionTypes.GET_RECORDS_ERROR;
-  constructor(public payload: Error | string) {}
-}
-
-export class GetRecord implements Action {
-  readonly type = AccountingActionTypes.GET_RECORD;
-  constructor(public payload: string) {}
-}
-
-export class GetRecordSuccess implements Action {
-  readonly type = AccountingActionTypes.GET_RECORD_SUCCESS;
-  constructor(public payload: Record) {}
-}
-
-export class GetRecordError implements Action {
-  readonly type = AccountingActionTypes.GET_RECORD_ERROR;
   constructor(public payload: Error | string) {}
 }
 
@@ -102,9 +83,6 @@ export type AccountingActions =
   | GetRecords
   | GetRecordsSuccess
   | GetRecordsError
-  | GetRecord
-  | GetRecordSuccess
-  | GetRecordError
   | CreateRecord
   | CreateRecordSuccess
   | CreateRecordError

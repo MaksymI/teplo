@@ -33,18 +33,6 @@ export class AccountingEffects {
   );
 
   @Effect()
-  getRecord$: Observable<Action> = this.actions$.pipe(
-    ofType(RecordsActions.AccountingActionTypes.GET_RECORD),
-    pluck('payload'),
-    switchMap(payload =>
-      this.recordPromiseService
-        .getRecord(payload.toString())
-        .then(record => new RecordsActions.GetRecordSuccess(record))
-        .catch(err => new RecordsActions.GetRecordsError(err))
-    )
-  );
-
-  @Effect()
   updateRecord$: Observable<Action> = this.actions$.pipe(
     ofType<RecordsActions.UpdateRecord>(
       RecordsActions.AccountingActionTypes.UPDATE_RECORD

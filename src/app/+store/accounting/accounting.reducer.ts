@@ -23,42 +23,11 @@ export function recordsReducer(
         data,
         loading: false,
         loaded: true,
-        selectedRecord: null
       };
     }
 
     case AccountingActionTypes.GET_RECORDS_ERROR: {
       console.log('GET_RECORDS_ERROR action being hadled');
-      const error = action.payload;
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        error
-      };
-    }
-
-    case AccountingActionTypes.GET_RECORD: {
-      console.log('GET_RECORD action being hadled');
-      return {
-        ...state,
-        loading: true
-      };
-    }
-
-    case AccountingActionTypes.GET_RECORD_SUCCESS: {
-      console.log('GET_RECORD_SUCCESS action being hadled');
-      const selectedRecord = { ...(<Record>action.payload) };
-      return {
-        ...state,
-        selectedRecord,
-        loading: false,
-        loaded: true
-      };
-    }
-
-    case AccountingActionTypes.GET_RECORD_ERROR: {
-      console.log('GET_RECORD_ERROR action being hadled');
       const error = action.payload;
       return {
         ...state,
