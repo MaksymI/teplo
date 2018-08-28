@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 // NgRx
 import { Store, select } from '@ngrx/store';
-import { AppState, AccountingState, getRecordsState } from '../../../+store';
+import { AppState, getRecordsData, getRecordsError } from '../../../+store';
 import * as RecordsActions from '../../../+store/accounting/accounting.actions';
 
 import { Observable } from 'rxjs';
@@ -16,13 +16,15 @@ import { Record } from '../../models/record.model';
   styleUrls: ['./record-list.component.css']
 })
 export class RecordListComponent implements OnInit {
-  recordsState$: Observable<AccountingState>;
+  records$: Observable<ReadonlyArray<Record>>;
+  recordsError$: Observable<Error | string>;
 
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() {
     console.log('We have a store! ', this.store);
-    this.recordsState$ = this.store.pipe(select(getRecordsState));
+    this.records$ = this.store.pipe(select(getRecordsData));
+    this.recordsError$ = this.store.pipe(select(getRecordsError));
 
     this.store.dispatch(new RecordsActions.GetRecords());
   }
