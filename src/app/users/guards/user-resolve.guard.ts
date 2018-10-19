@@ -5,13 +5,13 @@ import { Observable, of } from 'rxjs';
 import { map, delay, finalize, catchError, take } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
-import { UserArrayService } from '../services/user-array.service';
+import { UserObservableService } from '../services';
 import { SpinnerService } from '../../';
 
 @Injectable()
 export class UserResolveGuard implements Resolve<User> {
   constructor(
-    private userArrayService: UserArrayService,
+    private userObservableService: UserObservableService,
     private spinnerService: SpinnerService,
     private router: Router
   ) {}
@@ -24,9 +24,9 @@ export class UserResolveGuard implements Resolve<User> {
     }
 
     this.spinnerService.show();
-    const id = +route.paramMap.get('userID');
+    const id = route.paramMap.get('userID');
 
-    return this.userArrayService.getUser(id).pipe(
+    return this.userObservableService.getUser(id).pipe(
       delay(2000),
       map(user => {
         if (user) {

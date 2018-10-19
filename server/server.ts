@@ -69,6 +69,10 @@ app.get('/register', userController.getSignup);
 app.post('/register', userController.postSignup);
 
 app.get('/users', userListController.getUsers);
+app.get('/users/:userID', userListController.getUserById);
+app.put('/users/:userID', userListController.updateUserById);
+app.post('/users', userListController.createUser);
+app.delete('/users/:userID', userListController.deleteUserById);
 
 app.get('/record-list', recordController.getRecords);
 app.get('/record-list/:recordID', recordController.getRecordById);

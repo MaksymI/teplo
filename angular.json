@@ -123,5 +123,17 @@
       }
     }
   },
-  "defaultProject": "teplo"
+  "defaultProject": "teplo",
+  "schematics": {
+    "@ngrx/schematics:component": {
+      "prefix": "app",
+      "styleext": "css"
+    },
+    "@ngrx/schematics:diective": {
+      "prefix": "app"
+    }
+  },
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

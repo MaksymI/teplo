@@ -23,6 +23,24 @@
             </textarea>
         </mat-form-field>
 
+        <mat-form-field>
+            <textarea matInput required
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  [(ngModel)]="user.email">
+            </textarea>
+          </mat-form-field>
+
+          <mat-form-field>
+              <textarea matInput required
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  [(ngModel)]="user.password">
+              </textarea>
+          </mat-form-field>
+
         <button mat-raised-button color="primary"
           [disabled]="form.invalid">
           SAVE

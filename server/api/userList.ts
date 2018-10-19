@@ -16,57 +16,58 @@ export const getUsers = (req: Request, res: Response) => {
     });
 };
 
-export const getRecordById = (req: Request, res: Response) => {
-  console.log('getRecordById() invoked');
-  Record.findById(req.params.recordID)
-  .exec((err, record) => {
+export const getUserById = (req: Request, res: Response) => {
+  console.log('getUsersById() invoked');
+  NewUser.findById(req.params.userID)
+  .exec((err, user) => {
     if (err) {
-      console.log('Error retrieving record!');
+      console.log('Error retrieving user!');
       res.status(404).send('Not Found!');
     } else {
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(record);
+      res.status(200).send(user);
     }
   });
 };
 
-export const updateRecordById = (req: Request, res: Response) => {
-  console.log('updateRecordById() invoked');
-  Record.update({ _id: req.params.recordID }, req.body)
-  .exec((err, record) => {
+export const updateUserById = (req: Request, res: Response) => {
+  console.log('updateUserById() invoked');
+  NewUser.update({ _id: req.params.userID }, req.body)
+  .exec((err, user) => {
     if (err) {
-      console.log('Error updating record!');
+      console.log('Error updating user!');
       res.status(404).send('Not Found!');
     } else {
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(record);
+      res.status(200).send(user);
     }
   });
 };
 
-export const createRecord = (req: Request, res: Response) => {
-  console.log('createRecord() invoked');
-  Record.create(req.body)
-  .then(record => {
+export const createUser = (req: Request, res: Response) => {
+  console.log('createUser() invoked');
+  console.log('req.body ', req.body);
+  NewUser.create(req.body)
+  .then(user => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).send(record);
+    res.status(200).send(user);
   })
   .catch(err => {
       console.log(err);
-      res.status(404).send('Unable to create record!');
+      res.status(404).send(`Unable to create user! ${err}`);
   });
 };
 
-export const deleteRecordById = (req: Request, res: Response) => {
+export const deleteUserById = (req: Request, res: Response) => {
   console.log('deleteRecordById() invoked');
-  Record.findByIdAndRemove(req.params.recordID)
-  .exec((err, record) => {
+  NewUser.findByIdAndRemove(req.params.userID)
+  .exec((err, user) => {
     if (err) {
-      console.log('Error deleting record!');
-      res.status(404).send('Not Found!');
+      console.log('Error deleting user!');
+      res.status(404).send(`Not Found! ${err}`);
     } else {
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(record);
+      res.status(200).send(user);
     }
   });
 };

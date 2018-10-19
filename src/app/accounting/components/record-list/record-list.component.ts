@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+// NgRx
+import { Store, select } from '@ngrx/store';
+import { AppState, getRecordsData, getRecordsError } from '../../../+store';
+import * as RecordsActions from '../../../+store/accounting/accounting.actions';
+
+import { Observable } from 'rxjs';
+
 import { Record } from '../../models/record.model';
-import { RecordPromiseService } from '../../services';
 
 @Component({
   selector: 'app-record-list',
@@ -10,19 +16,24 @@ import { RecordPromiseService } from '../../services';
   styleUrls: ['./record-list.component.css']
 })
 export class RecordListComponent implements OnInit {
-  records: Array<Record>;
+  records$: Observable<ReadonlyArray<Record>>;
+  recordsError$: Observable<Error | string>;
 
-  constructor(
-    private router: Router,
-    private recordPromiseService: RecordPromiseService
-  ) { }
+  constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.getRecords().catch(err => console.log(err));
+    console.log('We have a store! ', this.store);
+    this.records$ = this.store.pipe(select(getRecordsData));
+    this.recordsError$ = this.store.pipe(select(getRecordsError));
+
+    this.store.dispatch(new RecordsActions.GetRecords());
   }
 
   onSaveRecord(record: Record): void {
-    this.updateRecord(record).catch(err => console.log(err));
+    console.log('record: ', record);
+    const savedRecord = { ...record, saved: true };
+    console.log('savedRecord: ', savedRecord);
+    this.store.dispatch(new RecordsActions.UpdateRecord(savedRecord));
   }
 
   onEditRecord(record: Record): void {
@@ -36,34 +47,6 @@ export class RecordListComponent implements OnInit {
   }
 
   onDeleteRecord(record: Record): void {
-    // this.recordPromiseService
-    // .deleteRecord(record)
-    // .then(() => (this.records = this.records.filter(r => r._id !== record._id)))
-    // .catch(err => console.log(err));
-    this.deleteRecord(record).catch(err => console.log(err));
+    this.store.dispatch(new RecordsActions.DeleteRecord(record));
   }
-
-  private async getRecords() {
-    this.records = await this.recordPromiseService.getRecords();
-  }
-
-  private async updateRecord(record: Record) {
-    const updatedRecord = await this.recordPromiseService.updateRecord({
-      ...record,
-      saved: true
-    });
-
-    if (updatedRecord) {
-      const index = this.records.findIndex(r => r._id === updatedRecord._id);
-      if (index > -1) {
-        this.records.splice(index, 1, updatedRecord);
-      }
-    }
-  }
-
-  private async deleteRecord(record: Record) {
-    const deletedRecord = await this.recordPromiseService.deleteRecord(record);
-    this.records = this.records.filter(r => r._id !== deletedRecord._id);
-  }
-
 }

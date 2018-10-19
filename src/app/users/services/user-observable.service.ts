@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { concatMap, catchError } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { UsersAPI } from '../users.config';
@@ -24,13 +24,42 @@ export class UserObservableService {
       .pipe(catchError(this.handleError));
   }
 
-  getUser(id: number) {}
+  getUser(id: string): Observable<User> {
+    const url = `${this.usersUrl}/${id}`;
+    return this.http
+      .get<User>(url).pipe(catchError(this.handleError));
+  }
 
-  updateUser(user: User) {}
+  updateUser(user: User): Observable<User> {
+    const url = `${this.usersUrl}/${user._id}`;
+    const body = JSON.stringify(user);
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
 
-  createUser(user: User) {}
+    return this.http
+      .put<User>(url, body, options)
+      .pipe(catchError(this.handleError));
+  }
 
-  deleteUser(user: User) {}
+  createUser(user: User): Observable<User> {
+    const url = this.usersUrl;
+    const body = JSON.stringify(user);
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http
+      .post<User>(url, body, options)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteUser(user: User): Observable<User[]> {
+    const url = `${this.usersUrl}/${user._id}`;
+
+    // return this.http.delete<User>(url);
+    return this.http.delete(url).pipe(concatMap(() => this.getUsers()));
+  }
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage: string;

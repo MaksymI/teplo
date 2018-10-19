@@ -1,57 +1,71 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+
+// NgRx
+import { Store, select } from '@ngrx/store';
+import { AppState, getSelectedRecordByUrl } from '../../../+store';
+import * as RecordsActions from '../../../+store/accounting/accounting.actions';
+// RxJs
+import { Subscription } from 'rxjs';
 
 import { Record } from '../../models/record.model';
-import { RecordPromiseService } from '../../services/';
+
+import { AutoUnsubscribe } from '../../../';
 
 @Component({
   selector: 'app-record-form',
   templateUrl: './record-form.component.html',
   styleUrls: ['./record-form.component.css']
 })
+@AutoUnsubscribe()
 export class RecordFormComponent implements OnInit {
   record: Record;
-  method: String;
+  method: string;
+
+  private sub: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
     private location: Location,
-    private recordPromiseService: RecordPromiseService
-  ) { }
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
-    this.record = new Record(null, null, null);
+    // this.sub = this.store.pipe(select(getSelectedRecord))
+    // .subscribe(record => {
+    //   if (record) {
+    //     this.record = record;
+    //   } else {
+    //     this.record = new Record(null, null, null);
+    //   }
+    // });
 
-    this.route.paramMap
-    .pipe(
-      switchMap((params: Params) => {
-        return params.get('recordID')
-          ? this.recordPromiseService.getRecord(params.get('recordID'))
-          // : Promise.resolve(null);
-          : Promise.resolve(this.record);
-      })
-    )
+    // this.route.paramMap.subscribe(params => {
+    //   const id = params.get('recordID');
+    //   this.method = id ? 'updateRecord' : 'createRecord';
+    //   if (id) {
+    //     this.store.dispatch(new RecordsActions.GetRecord(id));
+    //   }
+    // });
+
+    this.sub = this.store
+    .pipe(select(getSelectedRecordByUrl))
     .subscribe(record => {
-        this.record = {...record};
-        this.method = record._id ? 'CHANGE' : 'CREATE';
-      },
-      err => console.log(err)
-    );
+      this.method = record._id ? 'updateRecord' : 'createRecord';
+      this.record = record;
+    });
   }
 
   onChangeRecord() {
-    const record = { ...this.record, ...{saved: false} };
+    const record = { ...this.record, ...{ saved: false } };
 
-    const method = record._id ? 'updateRecord' : 'createRecord';
-    this.recordPromiseService[method](record)
-      .then(() => this.goBack())
-      .catch(err => console.log(err));
+    if (record._id) {
+      this.store.dispatch(new RecordsActions.UpdateRecord(record));
+    } else {
+      this.store.dispatch(new RecordsActions.CreateRecord(record));
+    }
   }
 
   goBack(): void {
     this.location.back();
   }
-
 }
