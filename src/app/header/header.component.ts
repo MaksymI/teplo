@@ -13,6 +13,10 @@ export class HeaderComponent implements OnInit {
       path: './record-list'
     },
     {
+      label: 'Record Table',
+      path: './record-table'
+    },
+    {
       label: 'Users',
       path: './users'
     },

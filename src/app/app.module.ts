@@ -11,6 +11,7 @@ import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { AccountingModule } from './accounting/accounting.module';
+import { RecordsTableModule } from './records-table/records-table.module';
 import {
   FooterComponent,
   HeaderComponent,
@@ -41,6 +42,7 @@ import {
     SharedModule,
     MaterialModule,
     AccountingModule,
+    RecordsTableModule,
     AppRoutingModule
   ],
   providers: [],
