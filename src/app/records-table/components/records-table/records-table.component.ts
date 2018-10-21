@@ -9,6 +9,8 @@ import { Record } from '../../../accounting/models/record.model';
 })
 export class RecordsTableComponent implements OnInit {
 
+  expand = false;
+  expandValue = 'Expand';
   displayedColumns: string[] = ['_id', 'value', 'date', 'saved'];
   @Input()
   dataSource: MatTableDataSource<Record[]>;
@@ -19,6 +21,10 @@ export class RecordsTableComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+  onExpand() {
+    this.expand = !this.expand;
+    this.expand ? this.expandValue = 'Collapse' : this.expandValue = 'Expand';
   }
 }
 

@@ -76,3 +76,7 @@ mat-cell {
   display: flex;
   justify-content: center;
 }
+
+.toolbar-flex {
+  flex: 1 0.5 auto;
+}

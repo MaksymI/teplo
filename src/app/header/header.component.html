@@ -1,17 +1,21 @@
 <header>
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link
+  <mat-toolbar>
+    <span class="toolbar-flex"></span>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link
       [routerLinkActiveOptions]="{exact: true}"
       *ngFor="let link of navLinks"
       [routerLink]="link.path"
       routerLinkActive #rla="routerLinkActive"
       [active]="rla.isActive">
       {{link.label}}
-    </a>
-    <span class="spacer"></span>
-    <a mat-tab-link>
-      <mat-icon *ngIf="authService.isLoggedIn" class="icon" routerLink="/login">person</mat-icon>
-      <mat-icon *ngIf="!authService.isLoggedIn" class="icon pointer" routerLink="/login" routerLinkActive="active">input</mat-icon>
-    </a>
-  </nav>
+      </a>
+      <span class="spacer"></span>
+      <a mat-tab-link>
+        <mat-icon *ngIf="authService.isLoggedIn" class="icon" routerLink="/login">person</mat-icon>
+        <mat-icon *ngIf="!authService.isLoggedIn" class="icon pointer" routerLink="/login" routerLinkActive="active">input</mat-icon>
+      </a>
+    </nav>
+    <span class="toolbar-flex"></span>
+  </mat-toolbar>
 </header>

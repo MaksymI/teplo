@@ -14,6 +14,9 @@ export class RecordsComponent implements OnInit {
   fleetData: any = [];
   dataSource = new MatTableDataSource(this.fleetData);
 
+  expand = false;
+  expandValue = 'Expand';
+
   constructor(private recordPromiseService: RecordPromiseService) { }
 
   ngOnInit() {
@@ -24,6 +27,11 @@ export class RecordsComponent implements OnInit {
 
   onSelectFiter(value) {
     value === 'clear filter' ? this.dataSource.filter = '' : this.dataSource.filter = value;
+  }
+
+  onExpand() {
+    this.expand = !this.expand;
+    this.expand ? this.expandValue = 'Collapse' : this.expandValue = 'Expand';
   }
 
 }

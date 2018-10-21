@@ -1,4 +1,10 @@
-<div class="container" fxLayout="row">
-  <app-records-filter (selectFilter)="onSelectFiter($event)" fxFlex="20%"></app-records-filter>
-  <app-records-table [dataSource]="dataSource" fxFLex="80%"></app-records-table>
-</div>
+<mat-card [class.full]="expand">
+  <mat-toolbar>
+    <span class="spacer"></span>
+    <button mat-button (click)="onExpand()">{{expandValue}}</button>
+  </mat-toolbar>
+  <div class="container" fxLayout="row" fxLayoutGap="10px">
+    <app-records-filter (selectFilter)="onSelectFiter($event)" fxFlex="20%"></app-records-filter>
+    <app-records-table [dataSource]="dataSource" fxFLex="80%"></app-records-table>
+  </div>
+</mat-card>
