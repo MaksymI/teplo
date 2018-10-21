@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-records-filter',
@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecordsFilterComponent implements OnInit {
 
+  saveds: string[] = ['clear filter', 'true', 'false'];
+
+  @Output()
+  selectFilter: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  onSelect(value): void {
+    this.selectFilter.emit(value);
+  }
+
+
 
 }

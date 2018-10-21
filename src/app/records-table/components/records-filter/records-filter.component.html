@@ -1,3 +1,9 @@
-<p>
-  records-filter works!
-</p>
+<mat-card>
+  <mat-form-field>
+    <mat-select (selectionChange)="onSelect($event.value)" placeholder="Saved filter">
+      <mat-option *ngFor="let saved of saveds" [value]="saved">
+        {{saved}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>

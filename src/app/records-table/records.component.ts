@@ -22,4 +22,8 @@ export class RecordsComponent implements OnInit {
     });
   }
 
+  onSelectFiter(value) {
+    value === 'clear filter' ? this.dataSource.filter = '' : this.dataSource.filter = value;
+  }
+
 }
