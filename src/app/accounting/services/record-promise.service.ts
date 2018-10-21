@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { Record } from '../models/record.model';
 
@@ -8,6 +11,12 @@ export class RecordPromiseService {
   private recordsUrl = 'http://localhost:3000/record-list';
 
   constructor(private http: HttpClient) {}
+
+  getRecordsObservable(): Observable<Record[]> {
+    return this.http
+      .get<Record[]>(this.recordsUrl)
+      .pipe(catchError(this.handleErrorObservable));
+  }
 
   getRecords(): Promise<Record[]> {
     return this.http
@@ -69,6 +78,22 @@ export class RecordPromiseService {
   private handleError(error: any): Promise<any> {
     console.error('An error occured ', error);
     return Promise.reject(error.message || error);
+  }
+
+  private handleErrorObservable(err: HttpErrorResponse) {
+    let errorMessage: string;
+
+    // A client-side or network error occured.
+    if (err.error instanceof Error) {
+      errorMessage = `An error occured: ${err.error.message}`;
+    } else {
+    // The backend returned an unsucessful response code.
+    // The response body ay contain clues as to what went wrong.
+      errorMessage = `Backend returned code ${err.status}, body was: ${err.error}`;
+    }
+
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
 
 }
