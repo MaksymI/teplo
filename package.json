@@ -11,7 +11,8 @@
     "test:ci": "jest --runInBand",
     "test:coverage": "jest --coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "testcafe-live chrome e2e/**/*.e2e-spec.ts",
+    "e2e:ci": "testcafe all e2e/**/*.e2e-spec.ts --app 'yarn start' --app-init-delay 5000"
   },
   "private": true,
   "dependencies": {
