@@ -9,8 +9,11 @@ import { Record } from '../../../accounting/models/record.model';
 })
 export class RecordsTableComponent implements OnInit {
 
+<<<<<<< HEAD
   expand = false;
   expandValue = 'Expand';
+=======
+>>>>>>> 1e35d54c068f858d83f746f0b24cc4ce2feb4d05
   displayedColumns: string[] = ['_id', 'value', 'date', 'saved'];
   @Input()
   dataSource: MatTableDataSource<Record[]>;
